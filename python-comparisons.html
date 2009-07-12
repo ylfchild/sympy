@@ -1,0 +1,429 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Development Tips: Comparisons in Python &mdash; SymPy v0.6.5.rc1 documentation</title>
+    <link rel="stylesheet" href="static/default.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.6.5.rc1',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
+    <link rel="top" title="SymPy v0.6.5.rc1 documentation" href="index.html" />
+    <link rel="next" title="Wiki" href="wiki.html" />
+    <link rel="prev" title="Iterables" href="modules/utilities/iterables.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="wiki.html" title="Wiki"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="modules/utilities/iterables.html" title="Iterables"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">SymPy v0.6.5.rc1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="development-tips-comparisons-in-python">
+<h1>Development Tips: Comparisons in Python<a class="headerlink" href="#development-tips-comparisons-in-python" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>When debugging comparisons and hashes in SymPy, it is necessary to understand
+when exactly Python calls each method.
+Unfortunately, the official Python documentation for this is
+not very detailed (see the docs for <a class="reference external" href="http://docs.python.org/dev/reference/datamodel.html#object.__lt__">rich comparison</a>,
+<a class="reference external" href="http://docs.python.org/dev/reference/datamodel.html#object.__cmp__">__cmp__()</a>
+and <a class="reference external" href="http://docs.python.org/dev/reference/datamodel.html#object.__hash__">__hash__()</a>
+methods).</p>
+<p>We wrote this guide to fill in the missing gaps. After reading it, you should
+be able to understand which methods get called (and which methods
+do not get called) in each case (and in which order).</p>
+</div>
+<div class="section" id="hashing">
+<h2>Hashing<a class="headerlink" href="#hashing" title="Permalink to this headline">¶</a></h2>
+<p>Every Python class has a <tt class="docutils literal"><span class="pre">__hash__()</span></tt> method, default
+implementation of which is:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can reimplement it to return your computed integer. <tt class="docutils literal"><span class="pre">hash(x)</span></tt> just calls
+<tt class="docutils literal"><span class="pre">x.__hash__()</span></tt>. Python builtin classes usually redefine the <tt class="docutils literal"><span class="pre">__hash__()</span></tt>
+method, for example an <tt class="docutils literal"><span class="pre">int</span></tt> has something like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>and a <tt class="docutils literal"><span class="pre">list</span></tt> something like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;list objects are unhashable&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The general
+idea about hashes is that if two objects have a different hash, they are not
+equal, but if they have the same hash, they <em>might</em> be equal (this is usually
+called a hash collision and you need to use the methods described in the
+next section to determine if they are really equal).</p>
+<p>The only requirement from the Python side, is
+that the hash value mustn&#8217;t change, once it was returned by the
+<tt class="docutils literal"><span class="pre">__hash__()</span></tt> method once.</p>
+</div>
+<div class="section" id="method-resolution">
+<h2>Method Resolution<a class="headerlink" href="#method-resolution" title="Permalink to this headline">¶</a></h2>
+<p>Let <tt class="docutils literal"><span class="pre">a</span></tt>, <tt class="docutils literal"><span class="pre">b</span></tt> and <tt class="docutils literal"><span class="pre">c</span></tt> be instances of any Python classes. As can be easily
+checked by the <a class="reference internal" href="#python-script">python script</a> at the end of this guide, if you write:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">a</span> <span class="o">==</span> <span class="n">b</span>
+</pre></div>
+</div>
+<p>Python tries to call:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">a</span><span class="o">.</span><span class="n">__eq__</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">__eq__</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">a</span><span class="o">.</span><span class="n">__cmp__</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">__cmp__</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">==</span> <span class="nb">id</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>in this order. If the particular method is not implemented (or the method
+returns <tt class="docutils literal"><span class="pre">NotImplemented</span></tt> <a class="footnote-reference" href="#id2" id="id1">[1]</a>) Python skips it
+and tries the next one until it succeeds (i.e. the method returns something
+meaningful). The last line is a catch up &#8211; it always succeeds.</p>
+<p>If you write:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">a</span> <span class="o">!=</span> <span class="n">b</span>
+</pre></div>
+</div>
+<p>Python tries to call:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">a</span><span class="o">.</span><span class="n">__ne__</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">__ne__</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">a</span><span class="o">.</span><span class="n">__cmp__</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">__cmp__</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">==</span> <span class="nb">id</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you write:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span>
+</pre></div>
+</div>
+<p>Python tries to call:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">a</span><span class="o">.</span><span class="n">__lt__</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">__gt__</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">a</span><span class="o">.</span><span class="n">__cmp__</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">__cmp__</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">id</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you write:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">a</span> <span class="o">&lt;=</span> <span class="n">b</span>
+</pre></div>
+</div>
+<p>Python tries to call:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">a</span><span class="o">.</span><span class="n">__le__</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">__ge__</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">a</span><span class="o">.</span><span class="n">__cmp__</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">__cmp__</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nb">id</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And similarly for <tt class="docutils literal"><span class="pre">a</span> <span class="pre">&gt;</span> <span class="pre">b</span></tt> and <tt class="docutils literal"><span class="pre">a</span> <span class="pre">&gt;=</span> <span class="pre">b</span></tt>.</p>
+<p>If you write:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sorted</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Python calls the same chain of methods as for the <tt class="docutils literal"><span class="pre">b</span> <span class="pre">&lt;</span> <span class="pre">a</span></tt> and <tt class="docutils literal"><span class="pre">c</span> <span class="pre">&lt;</span> <span class="pre">b</span></tt>
+comparisons.</p>
+<p>If you write any of those:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">a</span> <span class="ow">in</span> <span class="p">{</span><span class="n">d</span><span class="p">:</span> <span class="mf">5</span><span class="p">}</span>
+<span class="n">a</span> <span class="ow">in</span> <span class="n">set</span><span class="p">([</span><span class="n">d</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">d</span><span class="p">])</span>
+<span class="n">set</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">])</span> <span class="o">==</span> <span class="n">set</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Python first compares hashes, e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">a</span><span class="o">.</span><span class="n">__hash__</span><span class="p">()</span>
+<span class="n">d</span><span class="o">.</span><span class="n">__hash__</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>If <tt class="docutils literal"><span class="pre">hash(a)</span> <span class="pre">!=</span> <span class="pre">hash(d)</span></tt> then the result of the statement <tt class="docutils literal"><span class="pre">a</span> <span class="pre">in</span> <span class="pre">{d:</span> <span class="pre">5}</span></tt> is
+immediately <tt class="xref docutils literal"><span class="pre">False</span></tt> (remember how hashes work in general), otherwise (i.e.
+if <tt class="docutils literal"><span class="pre">hash(a)</span> <span class="pre">==</span> <span class="pre">hash(d)</span></tt>) Python goes through the method resolution of the
+<tt class="docutils literal"><span class="pre">==</span></tt> operator (see above).</p>
+</div>
+<div class="section" id="general-notes-and-caveats">
+<h2>General Notes and Caveats<a class="headerlink" href="#general-notes-and-caveats" title="Permalink to this headline">¶</a></h2>
+<p>In the method resolution for <tt class="docutils literal"><span class="pre">&lt;</span></tt>, <tt class="docutils literal"><span class="pre">&lt;=</span></tt>, <tt class="docutils literal"><span class="pre">==</span></tt>, <tt class="docutils literal"><span class="pre">!=</span></tt>, <tt class="docutils literal"><span class="pre">&gt;=</span></tt>, <tt class="docutils literal"><span class="pre">&gt;</span></tt> and
+<tt class="docutils literal"><span class="pre">sorted([a,</span> <span class="pre">b,</span> <span class="pre">c])</span></tt> operators the <tt class="docutils literal"><span class="pre">__hash__()</span></tt> method is <em>not</em> called, so
+in these cases it doesn&#8217;t matter what it returns. The <tt class="docutils literal"><span class="pre">__hash__()</span></tt> method is
+only called in sets and dictionaries.</p>
+<p>In the official Python documentation you can read about <a class="reference external" href="http://docs.python.org/dev/glossary.html#term-hashable">hashable and
+non-hashable</a> objects. In reality, you don&#8217;t have to think about it, you just follow the method
+resolution described here. E.g. if you try to use lists as dictionary keys, the
+list&#8217;s <tt class="docutils literal"><span class="pre">__hash__()</span></tt> method will be called and it returns an exception.</p>
+<p>In SymPy, every instance of any subclass of <tt class="docutils literal"><span class="pre">Basic</span></tt> is
+immutable.  Technically this means, that it&#8217;s behavior through all the methods
+above mustn&#8217;t change once the instance was created. Especially the hash value
+mustn&#8217;t change, as already stated above (otherwise objects will get mixed up in
+dictionaries, i.e. wrong objects returned etc).</p>
+</div>
+<div class="section" id="script-to-verify-this-guide">
+<span id="python-script"></span><h2>Script To Verify This Guide<a class="headerlink" href="#script-to-verify-this-guide" title="Permalink to this headline">¶</a></h2>
+<p>The above method resolution can be verified using the following program:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="nb">hash</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_hash</span> <span class="o">=</span> <span class="nb">hash</span>
+
+    <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">.__lt__(</span><span class="si">%s</span><span class="s">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">a</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">NotImplemented</span>
+
+    <span class="k">def</span> <span class="nf">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">.__le__(</span><span class="si">%s</span><span class="s">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">a</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">NotImplemented</span>
+
+    <span class="k">def</span> <span class="nf">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">.__gt__(</span><span class="si">%s</span><span class="s">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">a</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">NotImplemented</span>
+
+    <span class="k">def</span> <span class="nf">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">.__ge__(</span><span class="si">%s</span><span class="s">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">a</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">NotImplemented</span>
+
+    <span class="k">def</span> <span class="nf">__cmp__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">.__cmp__(</span><span class="si">%s</span><span class="s">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">a</span><span class="p">)</span>
+        <span class="c">#return cmp(self._hash, o._hash)</span>
+        <span class="k">return</span> <span class="bp">NotImplemented</span>
+
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">.__eq__(</span><span class="si">%s</span><span class="s">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">a</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">NotImplemented</span>
+
+    <span class="k">def</span> <span class="nf">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">.__ne__(</span><span class="si">%s</span><span class="s">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">a</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">NotImplemented</span>
+
+    <span class="k">def</span> <span class="nf">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">.__hash__()&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hash</span>
+
+<span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">&quot;--- </span><span class="si">%s</span><span class="s"> &quot;</span> <span class="o">%</span> <span class="n">s</span> <span class="o">+</span> <span class="s">&quot;-&quot;</span><span class="o">*</span><span class="mf">40</span>
+    <span class="nb">eval</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">,</span> <span class="mf">1</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="s">&quot;b&quot;</span><span class="p">,</span> <span class="mf">2</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="s">&quot;c&quot;</span><span class="p">,</span> <span class="mf">3</span><span class="p">)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="s">&quot;d&quot;</span><span class="p">,</span> <span class="mf">1</span><span class="p">)</span>
+
+<span class="n">show</span><span class="p">(</span><span class="s">&quot;a == b&quot;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s">&quot;a != b&quot;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s">&quot;a &lt; b&quot;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s">&quot;a &lt;= b&quot;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s">&quot;a &gt; b&quot;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s">&quot;a &gt;= b&quot;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s">&quot;sorted([a, b, c])&quot;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s">&quot;{d: 5}&quot;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s">&quot;a in {d: 5}&quot;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s">&quot;set([d, d, d])&quot;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s">&quot;a in set([d, d, d])&quot;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="s">&quot;set([a, b])&quot;</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">&quot;--- x = set([a, b]); y = set([a, b]); ---&quot;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">set</span><span class="p">([</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">set</span><span class="p">([</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">])</span>
+<span class="k">print</span> <span class="s">&quot;               x == y :&quot;</span>
+<span class="n">x</span> <span class="o">==</span> <span class="n">y</span>
+
+<span class="k">print</span> <span class="s">&quot;--- x = set([a, b]); y = set([b, d]); ---&quot;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">set</span><span class="p">([</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">set</span><span class="p">([</span><span class="n">b</span><span class="p">,</span><span class="n">d</span><span class="p">])</span>
+<span class="k">print</span> <span class="s">&quot;               x == y :&quot;</span>
+<span class="n">x</span> <span class="o">==</span> <span class="n">y</span>
+</pre></div>
+</div>
+<p>and its output:</p>
+<div class="highlight-python"><pre>--- a == b ----------------------------------------
+a.__eq__(b)
+b.__eq__(a)
+a.__cmp__(b)
+b.__cmp__(a)
+--- a != b ----------------------------------------
+a.__ne__(b)
+b.__ne__(a)
+a.__cmp__(b)
+b.__cmp__(a)
+--- a &lt; b ----------------------------------------
+a.__lt__(b)
+b.__gt__(a)
+a.__cmp__(b)
+b.__cmp__(a)
+--- a &lt;= b ----------------------------------------
+a.__le__(b)
+b.__ge__(a)
+a.__cmp__(b)
+b.__cmp__(a)
+--- a &gt; b ----------------------------------------
+a.__gt__(b)
+b.__lt__(a)
+a.__cmp__(b)
+b.__cmp__(a)
+--- a &gt;= b ----------------------------------------
+a.__ge__(b)
+b.__le__(a)
+a.__cmp__(b)
+b.__cmp__(a)
+--- sorted([a, b, c]) ----------------------------------------
+b.__lt__(a)
+a.__gt__(b)
+b.__cmp__(a)
+a.__cmp__(b)
+c.__lt__(b)
+b.__gt__(c)
+c.__cmp__(b)
+b.__cmp__(c)
+--- {d: 5} ----------------------------------------
+d.__hash__()
+--- a in {d: 5} ----------------------------------------
+d.__hash__()
+a.__hash__()
+d.__eq__(a)
+a.__eq__(d)
+d.__cmp__(a)
+a.__cmp__(d)
+--- set([d, d, d]) ----------------------------------------
+d.__hash__()
+d.__hash__()
+d.__hash__()
+--- a in set([d, d, d]) ----------------------------------------
+d.__hash__()
+d.__hash__()
+d.__hash__()
+a.__hash__()
+d.__eq__(a)
+a.__eq__(d)
+d.__cmp__(a)
+a.__cmp__(d)
+--- set([a, b]) ----------------------------------------
+a.__hash__()
+b.__hash__()
+--- x = set([a, b]); y = set([a, b]); ---
+a.__hash__()
+b.__hash__()
+a.__hash__()
+b.__hash__()
+               x == y :
+--- x = set([a, b]); y = set([b, d]); ---
+a.__hash__()
+b.__hash__()
+b.__hash__()
+d.__hash__()
+               x == y :
+d.__eq__(a)
+a.__eq__(d)
+d.__cmp__(a)
+a.__cmp__(d)</pre>
+</div>
+<hr class="docutils" />
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><p class="first">There is also similar <tt class="docutils literal"><span class="pre">NotImplementedError</span></tt> exception, which one may
+be tempted to raise to obtain the same effect as returning
+<tt class="docutils literal"><span class="pre">NotImplemented</span></tt>.</p>
+<p>But these are <strong>not</strong> the same, and Python will completely ignore
+<tt class="docutils literal"><span class="pre">NotImplementedError</span></tt> with respect to choosing appropriate comparison
+method, and will just propagate this exception upwards, to the caller.</p>
+<p>So:</p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="s">&#39;return NotImplemented&#39;</span>  <span class="o">!=</span>  <span class="s">&#39;raise NotImplementedError&#39;</span>
+</pre></div>
+</div>
+</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="static/sympylogo.png" alt="Logo"/>
+            </a></p>
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Development Tips: Comparisons in Python</a><ul>
+<li><a class="reference external" href="#introduction">Introduction</a></li>
+<li><a class="reference external" href="#hashing">Hashing</a></li>
+<li><a class="reference external" href="#method-resolution">Method Resolution</a></li>
+<li><a class="reference external" href="#general-notes-and-caveats">General Notes and Caveats</a></li>
+<li><a class="reference external" href="#script-to-verify-this-guide">Script To Verify This Guide</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="modules/utilities/iterables.html" title="previous chapter">Iterables</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="wiki.html" title="next chapter">Wiki</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="sources/python-comparisons.txt">Show Source</a></li>
+            </ul>
+          <h3>Quick search</h3>
+            <form class="search" action="search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="Go" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="wiki.html" title="Wiki"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="modules/utilities/iterables.html" title="Iterables"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">SymPy v0.6.5.rc1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2008, 2009 SymPy Development Team.
+      Last updated on Jul 11, 2009.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
+    </div>
+  </body>
+</html>
