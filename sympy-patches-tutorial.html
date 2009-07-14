@@ -98,7 +98,50 @@ reviewer too?</p>
 <p>Here we&#8217;ll describe the workflow using real world example where we fix some bug.</p>
 <div class="section" id="hacking">
 <h3>Hacking<a class="headerlink" href="#hacking" title="Permalink to this headline">¶</a></h3>
-<p>Suppose I want to fix issue <span class="math">#755</span></p>
+<p>Suppose I want to fix issue <div class="system-message">
+<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">#755</tt>)</p>
+latex exited with error:
+[stderr]
+
+[stdout]
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6)
+ %&amp;-line parsing enabled.
+entering extended mode
+(./math.tex
+LaTeX2e &lt;2005/12/01&gt;
+Babel &lt;v3.8h&gt; and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, czech, slovak, loaded.
+(/usr/share/texmf-texlive/tex/latex/base/article.cls
+Document Class: article 2005/09/16 v1.4f Standard LaTeX document class
+(/usr/share/texmf-texlive/tex/latex/base/size12.clo))
+(/usr/share/texmf-texlive/tex/latex/base/inputenc.sty
+(/usr/share/texmf-texlive/tex/latex/base/utf8.def
+(/usr/share/texmf-texlive/tex/latex/base/t1enc.dfu)
+(/usr/share/texmf-texlive/tex/latex/base/ot1enc.dfu)
+(/usr/share/texmf-texlive/tex/latex/base/omsenc.dfu)))
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?&#8217; option.
+(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty))
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty)
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty))
+(/usr/share/texmf-texlive/tex/latex/amscls/amsthm.sty)
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amssymb.sty
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amsfonts.sty))
+(/usr/share/texmf-texlive/tex/latex/tools/bm.sty) (./math.aux)
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd)
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd)
+! You can&#8217;t use `macro parameter character #&#8217; in math mode.
+&lt;recently read&gt; ##
+                  
+l.36 $#
+       755$
+[1] (./math.aux) )
+(see the transcript file for additional information)
+Output written on math.dvi (1 page, 204 bytes).
+Transcript written on math.log.
+</div>
+</p>
 <img alt="images/1b.png" src="images/1b.png" />
 <p>I go there</p>
 <img alt="images/2.png" src="images/2.png" />
@@ -106,8 +149,8 @@ reviewer too?</p>
 <img alt="images/3b.png" src="images/3b.png" />
 <p>...</p>
 <img alt="images/4b.png" src="images/4b.png" />
-<p>Aah, it looks like printing code in <span class="math">sympy/printing/printer.py</span> tries to treat
-<span class="math">expr</span> as an instance of a new-style class. I think I know how to fix this!</p>
+<p>Aah, it looks like printing code in <img class="math" src="images/math/21a823f30da7d40b608ecb3b4b0544bdfe0dc2c1.png" alt="sympy/printing/printer.py"/> tries to treat
+<img class="math" src="images/math/46e1e973645332f1d52ca571a6a88853bd5b1aad.png" alt="expr"/> as an instance of a new-style class. I think I know how to fix this!</p>
 <img alt="images/5b.png" src="images/5b.png" />
 <p>Ok, going to dive into the problem.</p>
 <p>First of all there exist two approaches to work:</p>
@@ -154,13 +197,81 @@ tags database first, then invoke my editor <a class="footnote-reference" href="#
 $ <strong class="input">ctags -R</strong>
 $ <strong class="input">vim</strong>
 </pre>
-<p>It was in <span class="math">_print</span> function, so I locate it using tags</p>
+<p>It was in <img class="math" src="images/math/819f668119705bbaf2cf3597c80bb73b1d843582.png" alt="_print"/> function, so I locate it using tags</p>
 <img alt="images/6.png" src="images/6.png" />
 <p>here it is</p>
 <img alt="images/7.png" src="images/7.png" />
 <p>and here is the failing code</p>
 <img alt="images/8.png" src="images/8.png" />
-<p>Aah, it seems old classes do not have the attribute <span class="math">__class__</span>. Let&#8217;s see if
+<p>Aah, it seems old classes do not have the attribute <div class="system-message">
+<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">__class__</tt>)</p>
+latex exited with error:
+[stderr]
+
+[stdout]
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6)
+ %&amp;-line parsing enabled.
+entering extended mode
+(./math.tex
+LaTeX2e &lt;2005/12/01&gt;
+Babel &lt;v3.8h&gt; and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, czech, slovak, loaded.
+(/usr/share/texmf-texlive/tex/latex/base/article.cls
+Document Class: article 2005/09/16 v1.4f Standard LaTeX document class
+(/usr/share/texmf-texlive/tex/latex/base/size12.clo))
+(/usr/share/texmf-texlive/tex/latex/base/inputenc.sty
+(/usr/share/texmf-texlive/tex/latex/base/utf8.def
+(/usr/share/texmf-texlive/tex/latex/base/t1enc.dfu)
+(/usr/share/texmf-texlive/tex/latex/base/ot1enc.dfu)
+(/usr/share/texmf-texlive/tex/latex/base/omsenc.dfu)))
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?&#8217; option.
+(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty))
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty)
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty))
+(/usr/share/texmf-texlive/tex/latex/amscls/amsthm.sty)
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amssymb.sty
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amsfonts.sty))
+(/usr/share/texmf-texlive/tex/latex/tools/bm.sty) (./math.aux)
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd)
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd)
+! Missing { inserted.
+&lt;to be read again&gt; 
+                   _
+l.36 $__
+        class__$
+! Missing { inserted.
+&lt;to be read again&gt; 
+                   _
+l.36 $__class__
+               $
+! Missing { inserted.
+&lt;to be read again&gt; 
+                   $
+l.36 $__class__$
+                
+! Missing } inserted.
+&lt;inserted text&gt; 
+                }
+l.36 $__class__$
+                
+! Missing } inserted.
+&lt;inserted text&gt; 
+                }
+l.36 $__class__$
+                
+! Missing } inserted.
+&lt;inserted text&gt; 
+                }
+l.36 $__class__$
+                
+[1] (./math.aux) )
+(see the transcript file for additional information)
+Output written on math.dvi (1 page, 268 bytes).
+Transcript written on math.log.
+</div>
+. Let&#8217;s see if
 this is the gist of the problem.</p>
 <pre class="literal-block">
 $ <strong class="input">./bin/isympy</strong>
@@ -175,7 +286,7 @@ exceptions.AttributeError                 Traceback (most recent call last)
 
 AttributeError: class C has no attribute &#8216;__class__&#8217;
 </pre>
-<p>Yes, it is. So I change it to what would always work. Then I invoke <span class="math">hq</span> <a class="footnote-reference" href="#id11" id="id3">[3]</a>
+<p>Yes, it is. So I change it to what would always work. Then I invoke <img class="math" src="images/math/7f5d5b713ddbdc445866e4fb7e0f41dc73791a68.png" alt="hq"/> <a class="footnote-reference" href="#id11" id="id3">[3]</a>
 to see what I&#8217;ve changed:</p>
 <pre class="literal-block">
 $ <strong class="input">hq</strong>
@@ -257,8 +368,8 @@ In [4]: <strong class="input">sympy.__dict__</strong>
 $ <strong class="input">hqq</strong>      # <a class="reference external" href="spt-patches/2.patch">2.patch</a>
 </pre>
 <img alt="images/12.png" src="images/12.png" />
-<p>Also, when looking at <span class="math">_print</span> function again, I&#8217;ve noticed there are typos in
-<span class="math">printer.py</span> so I&#8217;ve spellchecked the whole file</p>
+<p>Also, when looking at <img class="math" src="images/math/819f668119705bbaf2cf3597c80bb73b1d843582.png" alt="_print"/> function again, I&#8217;ve noticed there are typos in
+<img class="math" src="images/math/ab3d3e428c26cbee11f3932af8c5e969d3e7c17b.png" alt="printer.py"/> so I&#8217;ve spellchecked the whole file</p>
 <pre class="literal-block">
 $ <strong class="input">hqq</strong>      # <a class="reference external" href="spt-patches/3.patch">3.patch</a>
 </pre>
@@ -303,9 +414,9 @@ Testing docstrings.
 goal is to prepare our work for inclusion into the project.</p>
 <p>First, there are three semantically independent changes made:</p>
 <ol class="arabic simple">
-<li><span class="math">_print</span> dispatcher was fixed to handle old-style classes correctly</li>
+<li><img class="math" src="images/math/819f668119705bbaf2cf3597c80bb73b1d843582.png" alt="_print"/> dispatcher was fixed to handle old-style classes correctly</li>
 <li>we fixed pretty-printing to handle vertical objects of even height</li>
-<li>typos in <span class="math">sympy/printing/printer.py</span> were fixed</li>
+<li>typos in <img class="math" src="images/math/21a823f30da7d40b608ecb3b4b0544bdfe0dc2c1.png" alt="sympy/printing/printer.py"/> were fixed</li>
 </ol>
 <p>It is good to structure changes, and as said in the <a class="reference internal" href="#introduction">Introduction</a> we try to
 make the whole process fun for all, so let&#8217;s prepare three separate patches for
@@ -313,20 +424,63 @@ each change. This way it would be easier to review them.</p>
 <p>For this we are going to use <a class="reference external" href="http://www.selenic.com/mercurial/wiki/index.cgi/MqExtension">Mercurial Queues</a> and <a class="reference external" href="http://www.selenic.com/mercurial/wiki/index.cgi/RecordExtension">Record</a> extensions.</p>
 <div class="admonition-by-the-way admonition ">
 <p class="first admonition-title">By the way</p>
-<p>if you haven&#8217;t already done so, include the following lines into your <span class="math">~/.hgrc</span>:</p>
+<p>if you haven&#8217;t already done so, include the following lines into your <img class="math" src="images/math/6de2c248cd35c046b353d8e7b543116f3e976cba.png" alt="~/.hgrc"/>:</p>
 <div class="last highlight-python"><pre>[extensions]
 hgext.mq        =
 hgext.record    =</pre>
 </div>
 </div>
-<p>I&#8217;m going to record fix for <span class="math">#755</span> first</p>
+<p>I&#8217;m going to record fix for <div class="system-message">
+<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">#755</tt>)</p>
+latex exited with error:
+[stderr]
+
+[stdout]
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6)
+ %&amp;-line parsing enabled.
+entering extended mode
+(./math.tex
+LaTeX2e &lt;2005/12/01&gt;
+Babel &lt;v3.8h&gt; and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, czech, slovak, loaded.
+(/usr/share/texmf-texlive/tex/latex/base/article.cls
+Document Class: article 2005/09/16 v1.4f Standard LaTeX document class
+(/usr/share/texmf-texlive/tex/latex/base/size12.clo))
+(/usr/share/texmf-texlive/tex/latex/base/inputenc.sty
+(/usr/share/texmf-texlive/tex/latex/base/utf8.def
+(/usr/share/texmf-texlive/tex/latex/base/t1enc.dfu)
+(/usr/share/texmf-texlive/tex/latex/base/ot1enc.dfu)
+(/usr/share/texmf-texlive/tex/latex/base/omsenc.dfu)))
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?&#8217; option.
+(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty))
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty)
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty))
+(/usr/share/texmf-texlive/tex/latex/amscls/amsthm.sty)
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amssymb.sty
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amsfonts.sty))
+(/usr/share/texmf-texlive/tex/latex/tools/bm.sty) (./math.aux)
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd)
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd)
+! You can&#8217;t use `macro parameter character #&#8217; in math mode.
+&lt;recently read&gt; ##
+                  
+l.36 $#
+       755$
+[1] (./math.aux) )
+(see the transcript file for additional information)
+Output written on math.dvi (1 page, 204 bytes).
+Transcript written on math.log.
+</div>
+ first</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The command <span class="math">qrecord</span> below was introduced in Mercurial 1.0. If you have an
+<p class="last">The command <img class="math" src="images/math/b02a73e74f37aa78594cb8e55730cfb5e2c4b49d.png" alt="qrecord"/> below was introduced in Mercurial 1.0. If you have an
 older version of Mercurial, consider upgrading it. If that is not possible,
-you can use <span class="math">hg qnew -f</span> and <span class="math">hg qrefresh</span> commands &#8211; they&#8217;ll do the job,
+you can use <img class="math" src="images/math/19638d9777a9fc287a3616b3d1eb3c23af916872.png" alt="hg qnew -f"/> and <img class="math" src="images/math/b05715d11e8adc64fc7ebf06830a5910198d95be.png" alt="hg qrefresh"/> commands &#8211; they&#8217;ll do the job,
 although they are not-so-convenient when you work on several things
-at once (that&#8217;s why <span class="math">qrecord</span> was invented).</p>
+at once (that&#8217;s why <img class="math" src="images/math/b02a73e74f37aa78594cb8e55730cfb5e2c4b49d.png" alt="qrecord"/> was invented).</p>
 </div>
 <pre class="literal-block">
 $ <strong class="input">hg qrecord &#8211;edit pprint-fix-old-classes.patch</strong>
@@ -388,7 +542,7 @@ diff &#8211;git a/sympy/printing/tests/test_pretty_unicode.py b/sympy/printing/t
 examine changes to &#8216;sympy/printing/tests/test_pretty_unicode.py&#8217;? [Ynsfdaq?]  <strong class="input">n</strong>
 </pre>
 <p>Pay attention to how I carefully choose which hunks go into this patch and
-which do not. Especially note how <strong>some</strong> changes made to <span class="math">printer.py</span> were
+which do not. Especially note how <strong>some</strong> changes made to <img class="math" src="images/math/ab3d3e428c26cbee11f3932af8c5e969d3e7c17b.png" alt="printer.py"/> were
 recorded and other changes (spelling fixes) were left intact in the work dir.</p>
 <p>Then an editor is popped up and asks about commit message:</p>
 <pre class="literal-block">
@@ -416,7 +570,75 @@ $ <strong class="input">hg qapplied</strong>
 $ <strong class="input">hqq</strong>  # <a class="reference external" href="spt-patches/4.patch">4.patch</a>
 </pre>
 <img alt="images/14.png" src="images/14.png" />
-<p>note, how there is no more <span class="math">expr.__class__</span> -&gt; <span class="math">type(expr)</span> change in <span class="math">hqq</span> output.</p>
+<p>note, how there is no more <div class="system-message">
+<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">expr.__class__</tt>)</p>
+latex exited with error:
+[stderr]
+
+[stdout]
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6)
+ %&amp;-line parsing enabled.
+entering extended mode
+(./math.tex
+LaTeX2e &lt;2005/12/01&gt;
+Babel &lt;v3.8h&gt; and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, czech, slovak, loaded.
+(/usr/share/texmf-texlive/tex/latex/base/article.cls
+Document Class: article 2005/09/16 v1.4f Standard LaTeX document class
+(/usr/share/texmf-texlive/tex/latex/base/size12.clo))
+(/usr/share/texmf-texlive/tex/latex/base/inputenc.sty
+(/usr/share/texmf-texlive/tex/latex/base/utf8.def
+(/usr/share/texmf-texlive/tex/latex/base/t1enc.dfu)
+(/usr/share/texmf-texlive/tex/latex/base/ot1enc.dfu)
+(/usr/share/texmf-texlive/tex/latex/base/omsenc.dfu)))
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?&#8217; option.
+(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty))
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty)
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty))
+(/usr/share/texmf-texlive/tex/latex/amscls/amsthm.sty)
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amssymb.sty
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amsfonts.sty))
+(/usr/share/texmf-texlive/tex/latex/tools/bm.sty) (./math.aux)
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd)
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd)
+! Missing { inserted.
+&lt;to be read again&gt; 
+                   _
+l.36 $expr.__
+             class__$
+! Missing { inserted.
+&lt;to be read again&gt; 
+                   _
+l.36 $expr.__class__
+                    $
+! Missing { inserted.
+&lt;to be read again&gt; 
+                   $
+l.36 $expr.__class__$
+                     
+! Missing } inserted.
+&lt;inserted text&gt; 
+                }
+l.36 $expr.__class__$
+                     
+! Missing } inserted.
+&lt;inserted text&gt; 
+                }
+l.36 $expr.__class__$
+                     
+! Missing } inserted.
+&lt;inserted text&gt; 
+                }
+l.36 $expr.__class__$
+                     
+[1] (./math.aux) )
+(see the transcript file for additional information)
+Output written on math.dvi (1 page, 320 bytes).
+Transcript written on math.log.
+</div>
+ -&gt; <img class="math" src="images/math/91ac18479cbfdfebe7821ac01f524440f636d2a1.png" alt="type(expr)"/> change in <img class="math" src="images/math/12b9d8501d359da5fa06d0e8c788273204dbb2a2.png" alt="hqq"/> output.</p>
 <p>Congratulations, you&#8217;ve recorded your first patch!</p>
 <p>Let&#8217;s proceed with pprint</p>
 <pre class="literal-block">
@@ -613,7 +835,7 @@ $ <strong class="input">hg view</strong>
 <p>At this stage we are done with preparing our patches, and it is time to send
 them for review.</p>
 <p>First, let&#8217;s rebase them to the latest tip.</p>
-<p>For this we go to <span class="math">sympy</span> mirroring repository, see whats new, and pull updates:</p>
+<p>For this we go to <img class="math" src="images/math/c67772f1e78fc0c99c8fb7e420136ff21833c946.png" alt="sympy"/> mirroring repository, see whats new, and pull updates:</p>
 <pre class="literal-block">
 $ <strong class="input">cd ../sympy/</strong>
 $ <strong class="input">hg in</strong>
@@ -654,7 +876,7 @@ adding file changes
 added 5 changesets with 26 changes to 21 files
 21 files updated, 0 files merged, 0 files removed, 0 files unresolved
 </pre>
-<p>Now let&#8217;s get back to <span class="math">sympy-fix755</span></p>
+<p>Now let&#8217;s get back to <img class="math" src="images/math/bde1d78832c86c037a932c4a8550b58051fbc724.png" alt="sympy-fix755"/></p>
 <pre class="literal-block">
 $ <strong class="input">cd ../sympy-fix755/</strong>
 </pre>
@@ -766,7 +988,7 @@ today, so this is sympy-patches as viewed from Google web interface:</p>
 applied by someone else, but as your experience matures, you&#8217;ll be granted
 priviledges to push in yourself.</p>
 <p>Anyway, let&#8217;s see how pushing is done:</p>
-<p>Let&#8217;s first push to local <span class="math">sympy</span> mirror</p>
+<p>Let&#8217;s first push to local <img class="math" src="images/math/c67772f1e78fc0c99c8fb7e420136ff21833c946.png" alt="sympy"/> mirror</p>
 <pre class="literal-block">
 $ <strong class="input">hg push &#8211;force</strong>
 pushing to /home/kirr/src/sympy/spt-work/sympy
@@ -788,7 +1010,7 @@ know what we do.</p>
 repository, use &#8220;<tt class="docutils literal"><span class="pre">hg</span> <span class="pre">qdelete</span> <span class="pre">-r</span> <span class="pre">qbase:qtip</span></tt>&#8221; (the patches need to be
 applied).</p>
 </div>
-<p>Now let&#8217;s go to <span class="math">sympy</span> mirror and push into main repo!</p>
+<p>Now let&#8217;s go to <img class="math" src="images/math/c67772f1e78fc0c99c8fb7e420136ff21833c946.png" alt="sympy"/> mirror and push into main repo!</p>
 <pre class="literal-block">
 $ <strong class="input">cd ../sympy</strong>
 $ <strong class="input">hg push ssh://hg&#64;hg.sympy.org/sympy</strong>
@@ -802,9 +1024,52 @@ remote: notify: sending 1 subscribers 1 changes
 remote: notify: sending 1 subscribers 1 changes
 remote: notify: sending 1 subscribers 1 changes
 </pre>
-<p>Ok, patches are pushed. Here is what <span class="math">http://hg.sympy.org/sympy/</span> says:</p>
+<p>Ok, patches are pushed. Here is what <img class="math" src="images/math/deb249339bfaddf9c5a6291f15b4368d9eabadd3.png" alt="http://hg.sympy.org/sympy/"/> says:</p>
 <img alt="images/17.png" src="images/17.png" />
-<p>Now, let&#8217;s close <span class="math">#755</span></p>
+<p>Now, let&#8217;s close <div class="system-message">
+<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">#755</tt>)</p>
+latex exited with error:
+[stderr]
+
+[stdout]
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6)
+ %&amp;-line parsing enabled.
+entering extended mode
+(./math.tex
+LaTeX2e &lt;2005/12/01&gt;
+Babel &lt;v3.8h&gt; and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, czech, slovak, loaded.
+(/usr/share/texmf-texlive/tex/latex/base/article.cls
+Document Class: article 2005/09/16 v1.4f Standard LaTeX document class
+(/usr/share/texmf-texlive/tex/latex/base/size12.clo))
+(/usr/share/texmf-texlive/tex/latex/base/inputenc.sty
+(/usr/share/texmf-texlive/tex/latex/base/utf8.def
+(/usr/share/texmf-texlive/tex/latex/base/t1enc.dfu)
+(/usr/share/texmf-texlive/tex/latex/base/ot1enc.dfu)
+(/usr/share/texmf-texlive/tex/latex/base/omsenc.dfu)))
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?&#8217; option.
+(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty))
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty)
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty))
+(/usr/share/texmf-texlive/tex/latex/amscls/amsthm.sty)
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amssymb.sty
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amsfonts.sty))
+(/usr/share/texmf-texlive/tex/latex/tools/bm.sty) (./math.aux)
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd)
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd)
+! You can&#8217;t use `macro parameter character #&#8217; in math mode.
+&lt;recently read&gt; ##
+                  
+l.36 $#
+       755$
+[1] (./math.aux) )
+(see the transcript file for additional information)
+Output written on math.dvi (1 page, 204 bytes).
+Transcript written on math.log.
+</div>
+</p>
 <img alt="images/18.png" src="images/18.png" />
 <p>And we are done!</p>
 </div>
@@ -1096,7 +1361,7 @@ easy as I did for vim (hint Emacs has this for sure too)</td></tr>
 <table class="docutils footnote" frame="void" id="id11" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><p class="first">I have these aliases in my <span class="math">~/.bashrc</span></p>
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><p class="first">I have these aliases in my <img class="math" src="images/math/ee886d7b1d70aab79fb5b80c660f2383c76ae58b.png" alt="~/.bashrc"/></p>
 <div class="last highlight-python"><pre>alias hq='hg diff . | vim -R -'
 alias hqq='hg diff . | gvim -geometry 80x40+600+0 -R "+set nowrap" -'</pre>
 </div>
@@ -1174,7 +1439,7 @@ alias hqq='hg diff . | gvim -geometry 80x40+600+0 -R "+set nowrap" -'</pre>
     </div>
     <div class="footer">
       &copy; Copyright 2008, 2009 SymPy Development Team.
-      Last updated on Jul 12, 2009.
+      Last updated on Jul 13, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>
