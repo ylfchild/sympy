@@ -3,13 +3,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Polynomials Module &mdash; SymPy v0.6.5.rc1 documentation</title>
+    <title>Polynomials Module &mdash; SymPy v0.6.5 documentation</title>
     <link rel="stylesheet" href="../static/default.css" type="text/css" />
     <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.6.5.rc1',
+        VERSION:     '0.6.5',
         COLLAPSE_MODINDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -17,10 +17,10 @@
     </script>
     <script type="text/javascript" src="../static/jquery.js"></script>
     <script type="text/javascript" src="../static/doctools.js"></script>
-    <link rel="top" title="SymPy v0.6.5.rc1 documentation" href="../index.html" />
+    <link rel="top" title="SymPy v0.6.5 documentation" href="../index.html" />
     <link rel="up" title="SymPy Modules Reference" href="../modules.html" />
     <link rel="next" title="Printing System" href="printing.html" />
-    <link rel="prev" title="Term rewriting" href="rewriting.html" /> 
+    <link rel="prev" title="Speed tricks" href="mpmath/speedtricks.html" /> 
   </head>
   <body>
     <div class="related">
@@ -36,9 +36,9 @@
           <a href="printing.html" title="Printing System"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="rewriting.html" title="Term rewriting"
+          <a href="mpmath/speedtricks.html" title="Speed tricks"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">SymPy v0.6.5.rc1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">SymPy v0.6.5 documentation</a> &raquo;</li>
           <li><a href="../modules.html" accesskey="U">SymPy Modules Reference</a> &raquo;</li> 
       </ul>
     </div>  
@@ -69,7 +69,10 @@ form of SymPy expression, like symbols, sums etc.</p>
 is, for polynomials f and g, it computes q and r, such that f == g*q + r and
 degree(r) &lt; q. For polynomials in one variables with coefficients in a field,
 say, the rational numbers, q and r are uniquely defined this way.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="mf">5</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mf">2</span> <span class="o">+</span> <span class="mf">10</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mf">3</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="n">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">import</span> <span class="nn">sys</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">displayhook</span> <span class="o">=</span> <span class="n">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="mf">5</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mf">2</span> <span class="o">+</span> <span class="mf">10</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mf">3</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="mf">2</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mf">2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">q</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">div</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">q</span>
@@ -968,7 +971,7 @@ polynomial.</p>
 </ul>
 
             <h4>Previous topic</h4>
-            <p class="topless"><a href="rewriting.html" title="previous chapter">Term rewriting</a></p>
+            <p class="topless"><a href="mpmath/speedtricks.html" title="previous chapter">Speed tricks</a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="printing.html" title="next chapter">Printing System</a></p>
             <h3>This Page</h3>
@@ -998,15 +1001,15 @@ polynomial.</p>
           <a href="printing.html" title="Printing System"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="rewriting.html" title="Term rewriting"
+          <a href="mpmath/speedtricks.html" title="Speed tricks"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">SymPy v0.6.5.rc1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">SymPy v0.6.5 documentation</a> &raquo;</li>
           <li><a href="../modules.html" accesskey="U">SymPy Modules Reference</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2008, 2009 SymPy Development Team.
-      Last updated on Jul 13, 2009.
+      Last updated on Aug 28, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

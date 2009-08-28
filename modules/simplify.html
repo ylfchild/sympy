@@ -3,13 +3,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Simplify &mdash; SymPy v0.6.5.rc1 documentation</title>
+    <title>Simplify &mdash; SymPy v0.6.5 documentation</title>
     <link rel="stylesheet" href="../static/default.css" type="text/css" />
     <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.6.5.rc1',
+        VERSION:     '0.6.5',
         COLLAPSE_MODINDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -17,7 +17,7 @@
     </script>
     <script type="text/javascript" src="../static/jquery.js"></script>
     <script type="text/javascript" src="../static/doctools.js"></script>
-    <link rel="top" title="SymPy v0.6.5.rc1 documentation" href="../index.html" />
+    <link rel="top" title="SymPy v0.6.5 documentation" href="../index.html" />
     <link rel="up" title="SymPy Modules Reference" href="../modules.html" />
     <link rel="next" title="Statistics" href="statistics.html" />
     <link rel="prev" title="Series Expansions" href="series.html" /> 
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="series.html" title="Series Expansions"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">SymPy v0.6.5.rc1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">SymPy v0.6.5 documentation</a> &raquo;</li>
           <li><a href="../modules.html" accesskey="U">SymPy Modules Reference</a> &raquo;</li> 
       </ul>
     </div>  
@@ -59,7 +59,7 @@
 <p>Simplification is not a well defined term and the exact strategies
 this function tries can change in the future versions of SymPy. If
 your algorithm relies on &#8220;simplification&#8221; (whatever it is), try to
-determine what you need exactly  -  is it powsimp()? radsimp()?
+determine what you need exactly  -  is it powsimp()?, radsimp()?,
 together()?, logcombine()?, or something else? And use this particular
 function directly, because those are well defined and thus your algorithm
 will be robust.</p>
@@ -100,7 +100,7 @@ rational powers of collection variable:</p>
 <span class="go">c + x*(a - b) + x**2*(a + b)</span>
 </pre></div>
 </div>
-<p>The same result can achieved in dictionary form:</p>
+<p>The same result can be achieved in dictionary form:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">collect</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mf">2</span> <span class="o">+</span> <span class="n">b</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mf">2</span> <span class="o">+</span> <span class="n">a</span><span class="o">*</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">c</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">evaluate</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="p">[</span><span class="n">x</span><span class="o">**</span><span class="mf">2</span><span class="p">]</span>
 <span class="go">a + b</span>
@@ -127,7 +127,7 @@ about a single symbol at time, in specification order:</p>
 </pre></div>
 </div>
 <p>It is also possible to work with symbolic powers, although
-it has more complicated behaviour, because in this case
+it has more complicated behavior, because in this case
 power&#8217;s base and symbolic part of the exponent are treated
 as a single symbol:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">collect</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="n">c</span> <span class="o">+</span> <span class="n">b</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="n">c</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
@@ -139,7 +139,7 @@ as a single symbol:</p>
 </pre></div>
 </div>
 <p>However if you incorporate rationals to the exponents, then
-you will get well known behaviour:</p>
+you will get well known behavior:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">collect</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="p">(</span><span class="mf">2</span><span class="o">*</span><span class="n">c</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="p">(</span><span class="mf">2</span><span class="o">*</span><span class="n">c</span><span class="p">),</span> <span class="n">x</span><span class="o">**</span><span class="n">c</span><span class="p">)</span>
 <span class="go">(x**2)**c*(a + b)</span>
 </pre></div>
@@ -161,7 +161,7 @@ of some symbols then set &#8216;exact&#8217; flag in arguments:</p>
 </pre></div>
 </div>
 <p>You can also apply this function to differential equations, where
-derivatives of arbitary order can be collected:</p>
+derivatives of arbitrary order can be collected:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="n">Derivative</span> <span class="k">as</span> <span class="n">D</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="s">&#39;f&#39;</span><span class="p">)</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
@@ -205,7 +205,7 @@ call expand() prior to calling this function.</li>
 <dt id="sympy.simplify.simplify.separate">
 <!--[sympy.simplify.simplify.separate]--><tt class="descclassname">sympy.simplify.simplify.</tt><tt class="descname">separate</tt><big>(</big><em>expr</em>, <em>deep=False</em><big>)</big><a class="headerlink" href="#sympy.simplify.simplify.separate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rewrite or separate a power of product to a product of powers
-but without any expanding, ie. rewriting products to summations.</p>
+but without any expanding, i.e., rewriting products to summations.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">,</span> <span class="s">&#39;z&#39;</span><span class="p">)</span>
 </pre></div>
@@ -230,8 +230,8 @@ but without any expanding, ie. rewriting products to summations.</p>
 <span class="go">cos(x)**y*sin(x)**y</span>
 </pre></div>
 </div>
-<p>Notice that summations are left un touched. If this is not the
-requested behaviour, apply &#8216;expand&#8217; to input expression before:</p>
+<p>Notice that summations are left untouched. If this is not the
+requested behavior, apply &#8216;expand&#8217; to input expression before:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">separate</span><span class="p">(((</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">)</span><span class="o">*</span><span class="n">z</span><span class="p">)</span><span class="o">**</span><span class="mf">2</span><span class="p">)</span>
 <span class="go">z**2*(x + y)**2</span>
 </pre></div>
@@ -252,11 +252,11 @@ requested behaviour, apply &#8216;expand&#8217; to input expression before:</p>
 fraction. By default the resulting expression is simplified
 to reduce the total order of both numerator and denominator
 and minimize the number of terms.</p>
-<p>Densting is done recursively on fractions level. However this
+<p>Denesting is done recursively on fractions level. However this
 function will not attempt to rewrite composite objects, like
 functions, interior unless &#8216;deep&#8217; flag is set.</p>
 <p>By definition, &#8216;together&#8217; is a complement to &#8216;apart&#8217;, so
-apart(together(expr)) should left expression unhanged.</p>
+apart(together(expr)) should left expression unchanged.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">,</span> <span class="s">&#39;z&#39;</span><span class="p">)</span>
 </pre></div>
@@ -328,13 +328,14 @@ exponential functions or combinations of both:</p>
 <dt>== Usage ==</dt>
 <dd>ratsimp(expr) -&gt; joins two rational expressions and returns the simples form</dd>
 <dt>== Notes ==</dt>
-<dd>Currently can simplify only simple expressions, for this to be really usefull
+<dd>Currently can simplify only simple expressions, for this to be really useful
 multivariate polynomial algorithms are needed</dd>
 <dt>== Examples ==</dt>
 <dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s">&#39;y&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="n">ratsimp</span><span class="p">(</span><span class="mf">1</span><span class="o">/</span><span class="n">x</span> <span class="o">+</span> <span class="mf">1</span><span class="o">/</span><span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ratsimp</span><span class="p">(</span><span class="mf">1</span><span class="o">/</span><span class="n">x</span> <span class="o">+</span> <span class="mf">1</span><span class="o">/</span><span class="n">y</span><span class="p">)</span>
+<span class="go">(x + y)/(x*y)</span>
 </pre></div>
 </div>
 </dd>
@@ -455,7 +456,7 @@ to be automatic.  Also use deep=True if you need the old behavior.</p>
 </dd>
 <dt>== Examples ==</dt>
 <dd><div class="first highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="o">*</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span><span class="n">n</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">Symbol</span><span class="p">,</span> <span class="s">&#39;xn&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span><span class="n">n</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s">&#39;xn&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="n">n</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">n</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">n</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">powsimp</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
 <span class="go">n**(1 - n)</span>
@@ -536,7 +537,7 @@ is returned.</p>
 <dt id="sympy.simplify.simplify.hypersimilar">
 <!--[sympy.simplify.simplify.hypersimilar]--><tt class="descclassname">sympy.simplify.simplify.</tt><tt class="descname">hypersimilar</tt><big>(</big><em>f</em>, <em>g</em>, <em>k</em><big>)</big><a class="headerlink" href="#sympy.simplify.simplify.hypersimilar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns True if &#8216;f&#8217; and &#8216;g&#8217; are hyper-similar.</p>
-<p>Similarity in hypergeometric sens means that a quotient of
+<p>Similarity in hypergeometric sense means that a quotient of
 f(k) and g(k) is a rational function in k.  This procedure
 is useful in solving recurrence relations.</p>
 <p>For more information see hypersimp().</p>
@@ -811,13 +812,13 @@ earlier in this list might show up in subexpressions later in this list.</dd>
         <li class="right" >
           <a href="series.html" title="Series Expansions"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">SymPy v0.6.5.rc1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">SymPy v0.6.5 documentation</a> &raquo;</li>
           <li><a href="../modules.html" accesskey="U">SymPy Modules Reference</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2008, 2009 SymPy Development Team.
-      Last updated on Jul 13, 2009.
+      Last updated on Aug 28, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

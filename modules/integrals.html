@@ -3,13 +3,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Integrals &mdash; SymPy v0.6.5.rc1 documentation</title>
+    <title>Integrals &mdash; SymPy v0.6.5 documentation</title>
     <link rel="stylesheet" href="../static/default.css" type="text/css" />
     <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.6.5.rc1',
+        VERSION:     '0.6.5',
         COLLAPSE_MODINDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -17,7 +17,7 @@
     </script>
     <script type="text/javascript" src="../static/jquery.js"></script>
     <script type="text/javascript" src="../static/doctools.js"></script>
-    <link rel="top" title="SymPy v0.6.5.rc1 documentation" href="../index.html" />
+    <link rel="top" title="SymPy v0.6.5 documentation" href="../index.html" />
     <link rel="up" title="SymPy Modules Reference" href="../modules.html" />
     <link rel="next" title="Logic Module" href="logic.html" />
     <link rel="prev" title="Extended LaTeXModule for Sympy" href="galgebra/latex_ex/latex_ex.html" /> 
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="galgebra/latex_ex/latex_ex.html" title="Extended LaTeXModule for Sympy"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">SymPy v0.6.5.rc1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">SymPy v0.6.5 documentation</a> &raquo;</li>
           <li><a href="../modules.html" accesskey="U">SymPy Modules Reference</a> &raquo;</li> 
       </ul>
     </div>  
@@ -61,14 +61,15 @@
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>SymPy can integrate a vast array of functions. It can integrate polynomial functions:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="o">*</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">integrate</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mf">2</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="mf">1</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="go">     2    3</span>
-<span class="go">    x    x</span>
-<span class="go">x + -- + --</span>
-<span class="go">    2    3</span>
-</pre></div>
+<div class="highlight-python"><pre>    &gt;&gt;&gt; from sympy import *
+&gt;&gt;&gt; import sys
+&gt;&gt;&gt; sys.displayhook = pprint
+    &gt;&gt;&gt; x = Symbol('x')
+    &gt;&gt;&gt; integrate(x**2 + x + 1, x)
+         2    3
+        x    x
+    x + -- + --
+        2    3</pre>
 </div>
 <p>Rational functions:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">integrate</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mf">2</span><span class="o">+</span><span class="mf">2</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mf">1</span><span class="p">),</span> <span class="n">x</span><span class="p">)</span>
@@ -131,6 +132,10 @@ returned. This is equivalent of integrating f over all it&#8217;s variables.</p>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">integrate</span><span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">)</span>
 <span class="go">-x + x*log(x)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">integrate</span><span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
+<span class="go">1 - a + a*log(a)</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">integrate</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -275,13 +280,13 @@ fractional transformation).</p>
         <li class="right" >
           <a href="galgebra/latex_ex/latex_ex.html" title="Extended LaTeXModule for Sympy"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">SymPy v0.6.5.rc1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">SymPy v0.6.5 documentation</a> &raquo;</li>
           <li><a href="../modules.html" accesskey="U">SymPy Modules Reference</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2008, 2009 SymPy Development Team.
-      Last updated on Jul 13, 2009.
+      Last updated on Aug 28, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

@@ -3,43 +3,43 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Solvers &mdash; SymPy v0.6.5.rc1 documentation</title>
-    <link rel="stylesheet" href="../static/default.css" type="text/css" />
-    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    <title>Solvers &mdash; SymPy v0.6.5 documentation</title>
+    <link rel="stylesheet" href="../../static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.6.5.rc1',
+        URL_ROOT:    '../../',
+        VERSION:     '0.6.5',
         COLLAPSE_MODINDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="../static/jquery.js"></script>
-    <script type="text/javascript" src="../static/doctools.js"></script>
-    <link rel="top" title="SymPy v0.6.5.rc1 documentation" href="../index.html" />
-    <link rel="up" title="SymPy Modules Reference" href="../modules.html" />
-    <link rel="next" title="Utilities" href="utilities/index.html" />
-    <link rel="prev" title="Concrete Mathematics" href="concrete.html" /> 
+    <script type="text/javascript" src="../../static/jquery.js"></script>
+    <script type="text/javascript" src="../../static/doctools.js"></script>
+    <link rel="top" title="SymPy v0.6.5 documentation" href="../../index.html" />
+    <link rel="up" title="SymPy Modules Reference" href="../../modules.html" />
+    <link rel="next" title="Utilities" href="../utilities/index.html" />
+    <link rel="prev" title="ODE" href="ode.html" /> 
   </head>
   <body>
     <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
+          <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../modindex.html" title="Global Module Index"
+          <a href="../../modindex.html" title="Global Module Index"
              accesskey="M">modules</a> |</li>
         <li class="right" >
-          <a href="utilities/index.html" title="Utilities"
+          <a href="../utilities/index.html" title="Utilities"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="concrete.html" title="Concrete Mathematics"
+          <a href="ode.html" title="ODE"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">SymPy v0.6.5.rc1 documentation</a> &raquo;</li>
-          <li><a href="../modules.html" accesskey="U">SymPy Modules Reference</a> &raquo;</li> 
+        <li><a href="../../index.html">SymPy v0.6.5 documentation</a> &raquo;</li>
+          <li><a href="../../modules.html" accesskey="U">SymPy Modules Reference</a> &raquo;</li> 
       </ul>
     </div>  
     <div class="document">
@@ -100,60 +100,7 @@ dsolve() functions respectively.</p>
 </div>
 <div class="section" id="ordinary-differential-equations-odes">
 <h2>Ordinary Differential equations (ODEs)<a class="headerlink" href="#ordinary-differential-equations-odes" title="Permalink to this headline">¶</a></h2>
-<p>Use <a title="sympy.solvers.dsolve" class="reference internal" href="#sympy.solvers.dsolve"><tt class="xref docutils literal"><span class="pre">dsolve()</span></tt></a> to solve differential equations.</p>
-<dl class="staticmethod">
-<dt id="sympy.solvers.dsolve">
-<!--[sympy.solvers.dsolve]--><em class="property">
-static </em><tt class="descclassname">solvers.</tt><tt class="descname">dsolve</tt><big>(</big><em>eq</em>, <em>funcs</em><big>)</big><a class="headerlink" href="#sympy.solvers.dsolve" title="Permalink to this definition">¶</a></dt>
-<dd><p>Solves any (supported) kind of differential equation.</p>
-<p>Usage</p>
-<blockquote>
-dsolve(f, y(x)) -&gt; Solve a differential equation f for the function y</blockquote>
-<p>Details</p>
-<blockquote>
-<dl class="docutils">
-<dt>&#64;param f: ordinary differential equation (either just the left hand</dt>
-<dd>side, or the Equality class)</dd>
-</dl>
-<p>&#64;param y: indeterminate function of one variable</p>
-<ul>
-<li><p class="first">you can declare the derivative of an unknown function this way:
-&gt;&gt;&gt; from sympy import *
-&gt;&gt;&gt; x = Symbol(&#8216;x&#8217;) # x is the independent variable</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="s">&quot;f&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span> <span class="c"># f is a function of x</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">f_</span> <span class="o">=</span> <span class="n">Derivative</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="c"># f_ will be the derivative of f with respect to x</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first">This function just parses the equation &#8220;eq&#8221; and determines the type of
-differential equation by its order, then it determines all the
-coefficients and then calls the particular solver, which just accepts
-the coefficients.</p>
-</li>
-<li><p class="first">&#8220;eq&#8221; can be either an Equality, or just the left hand side (in which
-case the right hand side is assumed to be 0)</p>
-</li>
-<li><p class="first">see test_ode.py for many tests, that serve also as a set of examples
-how to use dsolve</p>
-</li>
-</ul>
-</blockquote>
-<p>Examples</p>
-<blockquote>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="o">*</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="s">&#39;f&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dsolve</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="n">x</span><span class="p">,</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="mf">9</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-<span class="go">C1*sin(3*x) + C2*cos(3*x)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dsolve</span><span class="p">(</span><span class="n">Eq</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="n">x</span><span class="p">,</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="mf">9</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="mf">1</span><span class="p">,</span> <span class="mf">1</span><span class="p">),</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-<span class="go">C1*sin(3*x) + C2*cos(3*x)</span>
-</pre></div>
-</div>
-</blockquote>
-</dd></dl>
-
+<p>See <a class="reference external" href="ode.html#ode-docs"><em>ODE</em></a>.</p>
 </div>
 <div class="section" id="partial-differential-equations-pdes">
 <h2>Partial Differential Equations (PDEs)<a class="headerlink" href="#partial-differential-equations-pdes" title="Permalink to this headline">¶</a></h2>
@@ -191,7 +138,7 @@ static </em><tt class="descclassname">pde.</tt><tt class="descname">pde_separate
 <p>Consider an equation of two independent variables x, y and a dependent
 variable w, we look for the product of two functions depending on different
 arguments:</p>
-<p><img class="math" src="../images/math/2f5fb517167cc23a323891901ed8d4a8446dca07.png" alt="w(x, y, z) = X(x) + y(y, z)"/></p>
+<p><img class="math" src="../../images/math/2f5fb517167cc23a323891901ed8d4a8446dca07.png" alt="w(x, y, z) = X(x) + y(y, z)"/></p>
 <p>Examples:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s">&#39;xt&#39;</span><span class="p">)</span>
@@ -213,7 +160,7 @@ static </em><tt class="descclassname">pde.</tt><tt class="descname">pde_separate
 <p>Consider an equation of two independent variables x, y and a dependent
 variable w, we look for the product of two functions depending on different
 arguments:</p>
-<p><img class="math" src="../images/math/0ec58f5e5826ec2e94b3f4a666a1bb8f0d5ed842.png" alt="w(x, y, z) = X(x)*u(y, z)"/></p>
+<p><img class="math" src="../../images/math/0ec58f5e5826ec2e94b3f4a666a1bb8f0d5ed842.png" alt="w(x, y, z) = X(x)*u(y, z)"/></p>
 <p>Examples:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s">&#39;xy&#39;</span><span class="p">)</span>
@@ -236,10 +183,10 @@ arguments:</p>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-            <p class="logo"><a href="../index.html">
-              <img class="logo" src="../static/sympylogo.png" alt="Logo"/>
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../static/sympylogo.png" alt="Logo"/>
             </a></p>
-            <h3><a href="../index.html">Table Of Contents</a></h3>
+            <h3><a href="../../index.html">Table Of Contents</a></h3>
             <ul>
 <li><a class="reference external" href="">Solvers</a><ul>
 <li><a class="reference external" href="#algebraic-equations">Algebraic equations</a></li>
@@ -250,15 +197,15 @@ arguments:</p>
 </ul>
 
             <h4>Previous topic</h4>
-            <p class="topless"><a href="concrete.html" title="previous chapter">Concrete Mathematics</a></p>
+            <p class="topless"><a href="ode.html" title="previous chapter">ODE</a></p>
             <h4>Next topic</h4>
-            <p class="topless"><a href="utilities/index.html" title="next chapter">Utilities</a></p>
+            <p class="topless"><a href="../utilities/index.html" title="next chapter">Utilities</a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
-              <li><a href="../sources/modules/solvers.txt">Show Source</a></li>
+              <li><a href="../../sources/modules/solvers/solvers.txt">Show Source</a></li>
             </ul>
           <h3>Quick search</h3>
-            <form class="search" action="../search.html" method="get">
+            <form class="search" action="../../search.html" method="get">
               <input type="text" name="q" size="18" /> <input type="submit" value="Go" />
               <input type="hidden" name="check_keywords" value="yes" />
               <input type="hidden" name="area" value="default" />
@@ -271,24 +218,24 @@ arguments:</p>
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
+          <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../modindex.html" title="Global Module Index"
+          <a href="../../modindex.html" title="Global Module Index"
              accesskey="M">modules</a> |</li>
         <li class="right" >
-          <a href="utilities/index.html" title="Utilities"
+          <a href="../utilities/index.html" title="Utilities"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="concrete.html" title="Concrete Mathematics"
+          <a href="ode.html" title="ODE"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">SymPy v0.6.5.rc1 documentation</a> &raquo;</li>
-          <li><a href="../modules.html" accesskey="U">SymPy Modules Reference</a> &raquo;</li> 
+        <li><a href="../../index.html">SymPy v0.6.5 documentation</a> &raquo;</li>
+          <li><a href="../../modules.html" accesskey="U">SymPy Modules Reference</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2008, 2009 SymPy Development Team.
-      Last updated on Jul 13, 2009.
+      Last updated on Aug 28, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

@@ -3,13 +3,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Tutorial &mdash; SymPy v0.6.5.rc1 documentation</title>
+    <title>Tutorial &mdash; SymPy v0.6.5 documentation</title>
     <link rel="stylesheet" href="static/default.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.6.5.rc1',
+        VERSION:     '0.6.5',
         COLLAPSE_MODINDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -17,7 +17,7 @@
     </script>
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="SymPy v0.6.5.rc1 documentation" href="index.html" />
+    <link rel="top" title="SymPy v0.6.5 documentation" href="index.html" />
     <link rel="next" title="Gotchas and Pitfalls" href="gotchas.html" />
     <link rel="prev" title="Installation" href="install.html" /> 
   </head>
@@ -37,7 +37,7 @@
         <li class="right" >
           <a href="install.html" title="Installation"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">SymPy v0.6.5.rc1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">SymPy v0.6.5 documentation</a> &raquo;</li> 
       </ul>
     </div>  
     <div class="document">
@@ -380,15 +380,15 @@ matching:</p>
 <span class="go">x**6</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">integrate</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">)</span>
 <span class="go">-cos(x)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">integrate</span><span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">)</span> <span class="c">#doctest: +SKIP</span>
-<span class="go">x*log(x) - x</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">integrate</span><span class="p">(</span><span class="mf">2</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">sinh</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">)</span> <span class="c">#doctest: +SKIP</span>
-<span class="go">x**2 + cosh(x)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">integrate</span><span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">)</span>
+<span class="go">-x + x*log(x)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">integrate</span><span class="p">(</span><span class="mf">2</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">sinh</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">)</span>
+<span class="go">cosh(x) + x**2</span>
 </pre></div>
 </div>
 <p>Also special functions are handled easily:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">integrate</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mf">2</span><span class="p">)</span><span class="o">*</span><span class="n">erf</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">)</span> <span class="c">#doctest: +SKIP</span>
-<span class="go">(1/4)*pi**(1/2)*erf(x)**2</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">integrate</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mf">2</span><span class="p">)</span><span class="o">*</span><span class="n">erf</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">)</span>
+<span class="go">pi**(1/2)*erf(x)**2/4</span>
 </pre></div>
 </div>
 <p>It is possible to compute definite integral:</p>
@@ -881,12 +881,12 @@ users contributed and we encourage you to edit it.</p>
         <li class="right" >
           <a href="install.html" title="Installation"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">SymPy v0.6.5.rc1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">SymPy v0.6.5 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2008, 2009 SymPy Development Team.
-      Last updated on Jul 13, 2009.
+      Last updated on Aug 28, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

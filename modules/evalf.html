@@ -3,13 +3,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Numerical evaluation &mdash; SymPy v0.6.5.rc1 documentation</title>
+    <title>Numerical evaluation &mdash; SymPy v0.6.5 documentation</title>
     <link rel="stylesheet" href="../static/default.css" type="text/css" />
     <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.6.5.rc1',
+        VERSION:     '0.6.5',
         COLLAPSE_MODINDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -17,10 +17,10 @@
     </script>
     <script type="text/javascript" src="../static/jquery.js"></script>
     <script type="text/javascript" src="../static/doctools.js"></script>
-    <link rel="top" title="SymPy v0.6.5.rc1 documentation" href="../index.html" />
+    <link rel="top" title="SymPy v0.6.5 documentation" href="../index.html" />
     <link rel="up" title="SymPy Modules Reference" href="../modules.html" />
     <link rel="next" title="Functions Module" href="functions.html" />
-    <link rel="prev" title="SymPy Core" href="core.html" /> 
+    <link rel="prev" title="Concrete Mathematics" href="concrete.html" /> 
   </head>
   <body>
     <div class="related">
@@ -36,9 +36,9 @@
           <a href="functions.html" title="Functions Module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="core.html" title="SymPy Core"
+          <a href="concrete.html" title="Concrete Mathematics"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">SymPy v0.6.5.rc1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">SymPy v0.6.5 documentation</a> &raquo;</li>
           <li><a href="../modules.html" accesskey="U">SymPy Modules Reference</a> &raquo;</li> 
       </ul>
     </div>  
@@ -75,8 +75,7 @@
 <p>If the expression contains symbols or for some other reason cannot be evaluated numerically, calling <tt class="docutils literal"><span class="pre">.evalf()</span></tt> or <tt class="docutils literal"><span class="pre">N()</span></tt> returns the original expression, or in some cases a partially evaluated expression. For example, when the expression is a polynomial in expanded form, the coefficients are evaluated:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">pi</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mf">2</span> <span class="o">+</span> <span class="n">x</span><span class="o">/</span><span class="mf">3</span><span class="p">)</span><span class="o">.</span><span class="n">evalf</span><span class="p">()</span>
-<span class="go">                                        2</span>
-<span class="go">0.333333333333333*x + 3.14159265358979*x</span>
+<span class="go">0.333333333333333*x + 3.14159265358979*x**2</span>
 </pre></div>
 </div>
 <p>You can also use the standard Python functions <tt class="docutils literal"><span class="pre">float()</span></tt>, <tt class="docutils literal"><span class="pre">complex()</span></tt> to convert SymPy expressions to regular Python numbers:</p>
@@ -227,7 +226,10 @@
 </pre></div>
 </div>
 <p>Oscillatory quadrature requires an integrand containing a factor cos(ax+b) or sin(ax+b). Note that many other oscillatory integrals can be transformed to this form with a change of variables:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">intgrl</span> <span class="o">=</span> <span class="n">Integral</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="mf">1</span><span class="o">/</span><span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">1</span><span class="p">))</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">1</span><span class="o">/</span><span class="n">x</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="n">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">import</span> <span class="nn">sys</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">displayhook</span> <span class="o">=</span> <span class="n">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">intgrl</span> <span class="o">=</span> <span class="n">Integral</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="mf">1</span><span class="o">/</span><span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">1</span><span class="p">))</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">1</span><span class="o">/</span><span class="n">x</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">intgrl</span>
 <span class="go"> oo</span>
 <span class="go">  /</span>
@@ -366,7 +368,7 @@
 </ul>
 
             <h4>Previous topic</h4>
-            <p class="topless"><a href="core.html" title="previous chapter">SymPy Core</a></p>
+            <p class="topless"><a href="concrete.html" title="previous chapter">Concrete Mathematics</a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="functions.html" title="next chapter">Functions Module</a></p>
             <h3>This Page</h3>
@@ -396,15 +398,15 @@
           <a href="functions.html" title="Functions Module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="core.html" title="SymPy Core"
+          <a href="concrete.html" title="Concrete Mathematics"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">SymPy v0.6.5.rc1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">SymPy v0.6.5 documentation</a> &raquo;</li>
           <li><a href="../modules.html" accesskey="U">SymPy Modules Reference</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2008, 2009 SymPy Development Team.
-      Last updated on Jul 13, 2009.
+      Last updated on Aug 28, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

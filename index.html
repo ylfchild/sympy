@@ -3,13 +3,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Welcome to SymPy&#8217;s documentation! &mdash; SymPy v0.6.5.rc1 documentation</title>
+    <title>Welcome to SymPy&#8217;s documentation! &mdash; SymPy v0.6.5 documentation</title>
     <link rel="stylesheet" href="static/default.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.6.5.rc1',
+        VERSION:     '0.6.5',
         COLLAPSE_MODINDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -17,7 +17,7 @@
     </script>
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="SymPy v0.6.5.rc1 documentation" href="" />
+    <link rel="top" title="SymPy v0.6.5 documentation" href="" />
     <link rel="next" title="Installation" href="install.html" /> 
   </head>
   <body>
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="install.html" title="Installation"
              accesskey="N">next</a> |</li>
-        <li><a href="">SymPy v0.6.5.rc1 documentation</a> &raquo;</li> 
+        <li><a href="">SymPy v0.6.5 documentation</a> &raquo;</li> 
       </ul>
     </div>  
     <div class="document">
@@ -87,6 +87,7 @@ If you are new to SymPy, start with the Tutorial.</p>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="modules.html">SymPy Modules Reference</a><ul>
 <li class="toctree-l2"><a class="reference external" href="modules/core.html">SymPy Core</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/concrete.html">Concrete Mathematics</a></li>
 <li class="toctree-l2"><a class="reference external" href="modules/evalf.html">Numerical evaluation</a></li>
 <li class="toctree-l2"><a class="reference external" href="modules/functions.html">Functions Module</a></li>
 <li class="toctree-l2"><a class="reference external" href="modules/functions.html#elementary">Elementary</a></li>
@@ -99,18 +100,25 @@ If you are new to SymPy, start with the Tutorial.</p>
 <li class="toctree-l2"><a class="reference external" href="modules/logic.html">Logic Module</a></li>
 <li class="toctree-l2"><a class="reference external" href="modules/matrices.html">Matrices (linear algebra)</a></li>
 <li class="toctree-l2"><a class="reference external" href="modules/mpmath/index.html">mpmath</a></li>
-<li class="toctree-l2"><a class="reference external" href="modules/rewriting.html">Term rewriting</a></li>
 <li class="toctree-l2"><a class="reference external" href="modules/polynomials.html">Polynomials Module</a></li>
 <li class="toctree-l2"><a class="reference external" href="modules/printing.html">Printing System</a></li>
 <li class="toctree-l2"><a class="reference external" href="modules/plotting.html">Plotting</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/queries.html">Query module</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/queries.html#assumptions">Assumptions</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/queries.html#supported-queries">Supported queries</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/queries.html#design">Design</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/queries.html#extensibility">Extensibility</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/queries.html#performance-improvements">Performance improvements</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/queries.html#misc">Misc</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/rewriting.html">Term rewriting</a></li>
 <li class="toctree-l2"><a class="reference external" href="modules/series.html">Series Expansions</a></li>
 <li class="toctree-l2"><a class="reference external" href="modules/simplify.html">Simplify</a></li>
 <li class="toctree-l2"><a class="reference external" href="modules/simplify.html#module-sympy.simplify.rewrite">Rewrite</a></li>
 <li class="toctree-l2"><a class="reference external" href="modules/simplify.html#module-sympy.simplify.sqrtdenest">Square Root Denest</a></li>
 <li class="toctree-l2"><a class="reference external" href="modules/simplify.html#module-sympy.simplify.cse_main">Common Subexpresion Elimination</a></li>
 <li class="toctree-l2"><a class="reference external" href="modules/statistics.html">Statistics</a></li>
-<li class="toctree-l2"><a class="reference external" href="modules/concrete.html">Concrete Mathematics</a></li>
-<li class="toctree-l2"><a class="reference external" href="modules/solvers.html">Solvers</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/solvers/ode.html">ODE</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/solvers/solvers.html">Solvers</a></li>
 <li class="toctree-l2"><a class="reference external" href="modules/utilities/index.html">Utilities</a></li>
 <li class="toctree-l2"><a class="reference external" href="modules.html#contributions-to-docs">Contributions to docs</a></li>
 </ul>
@@ -137,6 +145,7 @@ If you are new to SymPy, start with the Tutorial.</p>
 <li class="toctree-l2"><a class="reference external" href="sympy-patches-tutorial.html#for-impatient">For impatient</a></li>
 <li class="toctree-l2"><a class="reference external" href="sympy-patches-tutorial.html#introduction">Introduction</a></li>
 <li class="toctree-l2"><a class="reference external" href="sympy-patches-tutorial.html#workflow">Workflow</a></li>
+<li class="toctree-l2"><a class="reference external" href="sympy-patches-tutorial.html#how-to-write-docstrings">How to Write Docstrings</a></li>
 <li class="toctree-l2"><a class="reference external" href="sympy-patches-tutorial.html#appendix">Appendix</a></li>
 </ul>
 </li>
@@ -199,12 +208,12 @@ report it</a>).</p>
         <li class="right" >
           <a href="install.html" title="Installation"
              accesskey="N">next</a> |</li>
-        <li><a href="">SymPy v0.6.5.rc1 documentation</a> &raquo;</li> 
+        <li><a href="">SymPy v0.6.5 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2008, 2009 SymPy Development Team.
-      Last updated on Jul 13, 2009.
+      Last updated on Aug 28, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

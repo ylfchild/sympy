@@ -3,13 +3,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>SymPy Modules Reference &mdash; SymPy v0.6.5.rc1 documentation</title>
+    <title>SymPy Modules Reference &mdash; SymPy v0.6.5 documentation</title>
     <link rel="stylesheet" href="static/default.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.6.5.rc1',
+        VERSION:     '0.6.5',
         COLLAPSE_MODINDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -17,7 +17,7 @@
     </script>
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="SymPy v0.6.5.rc1 documentation" href="index.html" />
+    <link rel="top" title="SymPy v0.6.5 documentation" href="index.html" />
     <link rel="next" title="SymPy Core" href="modules/core.html" />
     <link rel="prev" title="SymPy User&#8217;s Guide" href="guide.html" /> 
   </head>
@@ -37,7 +37,7 @@
         <li class="right" >
           <a href="guide.html" title="SymPy User&#8217;s Guide"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">SymPy v0.6.5.rc1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">SymPy v0.6.5 documentation</a> &raquo;</li> 
       </ul>
     </div>  
     <div class="document">
@@ -60,6 +60,12 @@ access any SymPy module, or use this contens:</p>
 <li class="toctree-l2"><a class="reference external" href="modules/core.html#module-sympy.core.basic">Basic</a></li>
 <li class="toctree-l2"><a class="reference external" href="modules/core.html#module-sympy.core.symbol">Symbol</a></li>
 <li class="toctree-l2"><a class="reference external" href="modules/core.html#module-sympy.core.add">Add</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="modules/concrete.html">Concrete Mathematics</a><ul>
+<li class="toctree-l2"><a class="reference external" href="modules/concrete.html#hypergeometric-terms">Hypergeometric terms</a></li>
 </ul>
 </li>
 </ul>
@@ -188,13 +194,6 @@ access any SymPy module, or use this contens:</p>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="modules/rewriting.html">Term rewriting</a><ul>
-<li class="toctree-l2"><a class="reference external" href="modules/rewriting.html#expanding">Expanding</a></li>
-<li class="toctree-l2"><a class="reference external" href="modules/rewriting.html#module-sympy.simplify.cse_main">Common Subexpression Detection and Collection</a></li>
-</ul>
-</li>
-</ul>
-<ul>
 <li class="toctree-l1"><a class="reference external" href="modules/polynomials.html">Polynomials Module</a><ul>
 <li class="toctree-l2"><a class="reference external" href="modules/polynomials.html#introduction">Introduction</a></li>
 <li class="toctree-l2"><a class="reference external" href="modules/polynomials.html#basic-functionality">Basic functionality</a></li>
@@ -221,6 +220,40 @@ access any SymPy module, or use this contens:</p>
 <li class="toctree-l2"><a class="reference external" href="modules/plotting.html#using-the-interactive-interface">Using the Interactive Interface</a></li>
 <li class="toctree-l2"><a class="reference external" href="modules/plotting.html#using-custom-color-functions">Using Custom Color Functions</a></li>
 <li class="toctree-l2"><a class="reference external" href="modules/plotting.html#plotting-geometric-entities">Plotting Geometric Entities</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="modules/queries.html">Query module</a></li>
+<li class="toctree-l1"><a class="reference external" href="modules/queries.html#assumptions">Assumptions</a></li>
+<li class="toctree-l1"><a class="reference external" href="modules/queries.html#supported-queries">Supported queries</a><ul>
+<li class="toctree-l2"><a class="reference external" href="modules/queries.html#bounded">bounded</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/queries.html#commutative">commutative</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/queries.html#complex">complex</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/queries.html#even">even</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/queries.html#extended-real">extended_real</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/queries.html#imaginary">imaginary</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/queries.html#infinitesimal">infinitesimal</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/queries.html#integer">integer</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/queries.html#irrational">irrational</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/queries.html#rational">rational</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/queries.html#negative">negative</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/queries.html#positive">positive</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/queries.html#prime">prime</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/queries.html#real">real</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/queries.html#odd">odd</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/queries.html#nonzero">nonzero</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="modules/queries.html#design">Design</a></li>
+<li class="toctree-l1"><a class="reference external" href="modules/queries.html#extensibility">Extensibility</a></li>
+<li class="toctree-l1"><a class="reference external" href="modules/queries.html#performance-improvements">Performance improvements</a></li>
+<li class="toctree-l1"><a class="reference external" href="modules/queries.html#misc">Misc</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="modules/rewriting.html">Term rewriting</a><ul>
+<li class="toctree-l2"><a class="reference external" href="modules/rewriting.html#expanding">Expanding</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/rewriting.html#module-sympy.simplify.cse_main">Common Subexpression Detection and Collection</a></li>
 </ul>
 </li>
 </ul>
@@ -271,16 +304,18 @@ access any SymPy module, or use this contens:</p>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="modules/concrete.html">Concrete Mathematics</a><ul>
-<li class="toctree-l2"><a class="reference external" href="modules/concrete.html#hypergeometric-terms">Hypergeometric terms</a></li>
+<li class="toctree-l1"><a class="reference external" href="modules/solvers/ode.html">ODE</a><ul>
+<li class="toctree-l2"><a class="reference external" href="modules/solvers/ode.html#user-functions">User Functions</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/solvers/ode.html#hint-methods">Hint Methods</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/solvers/ode.html#module-sympy.solvers.ode">Information on the ode module</a></li>
 </ul>
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="modules/solvers.html">Solvers</a><ul>
-<li class="toctree-l2"><a class="reference external" href="modules/solvers.html#algebraic-equations">Algebraic equations</a></li>
-<li class="toctree-l2"><a class="reference external" href="modules/solvers.html#ordinary-differential-equations-odes">Ordinary Differential equations (ODEs)</a></li>
-<li class="toctree-l2"><a class="reference external" href="modules/solvers.html#partial-differential-equations-pdes">Partial Differential Equations (PDEs)</a></li>
+<li class="toctree-l1"><a class="reference external" href="modules/solvers/solvers.html">Solvers</a><ul>
+<li class="toctree-l2"><a class="reference external" href="modules/solvers/solvers.html#algebraic-equations">Algebraic equations</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/solvers/solvers.html#ordinary-differential-equations-odes">Ordinary Differential equations (ODEs)</a></li>
+<li class="toctree-l2"><a class="reference external" href="modules/solvers/solvers.html#partial-differential-equations-pdes">Partial Differential Equations (PDEs)</a></li>
 </ul>
 </li>
 </ul>
@@ -349,12 +384,12 @@ otherwise the documentation generation needs to be improved (look in the
         <li class="right" >
           <a href="guide.html" title="SymPy User&#8217;s Guide"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">SymPy v0.6.5.rc1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">SymPy v0.6.5 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2008, 2009 SymPy Development Team.
-      Last updated on Jul 13, 2009.
+      Last updated on Aug 28, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

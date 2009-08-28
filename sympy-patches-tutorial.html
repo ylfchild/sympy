@@ -3,13 +3,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>SymPy Patches Tutorial &mdash; SymPy v0.6.5.rc1 documentation</title>
+    <title>SymPy Patches Tutorial &mdash; SymPy v0.6.5 documentation</title>
     <link rel="stylesheet" href="static/default.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.6.5.rc1',
+        VERSION:     '0.6.5',
         COLLAPSE_MODINDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -17,7 +17,7 @@
     </script>
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="SymPy v0.6.5.rc1 documentation" href="index.html" />
+    <link rel="top" title="SymPy v0.6.5 documentation" href="index.html" />
     <link rel="next" title="SymPy Presentations" href="outreach.html" />
     <link rel="prev" title="Wiki" href="wiki.html" /> 
   </head>
@@ -37,7 +37,7 @@
         <li class="right" >
           <a href="wiki.html" title="Wiki"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">SymPy v0.6.5.rc1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">SymPy v0.6.5 documentation</a> &raquo;</li> 
       </ul>
     </div>  
     <div class="document">
@@ -1104,6 +1104,35 @@ as well.</p>
 </div>
 </div>
 </div>
+<div class="section" id="how-to-write-docstrings">
+<h2>How to Write Docstrings<a class="headerlink" href="#how-to-write-docstrings" title="Permalink to this headline">¶</a></h2>
+<p>Execute the code that you want to add into the docstrings by:</p>
+<div class="highlight-python"><pre>$ bin/isympy -c python -p no
+[...]
+Documentation can be found at http://sympy.org/
+
+&gt;&gt;&gt; x = Symbol("x", positive=True)  # doctest: +SKIP
+&gt;&gt;&gt; x.assumptions0   # doctest: +SKIP
+{'commutative': True, 'complex': True, 'imaginary': False, 'negative':
+False, 'nonnegative': True, 'nonpositive': False, 'nonzero': True,
+'positive': True, 'real': True, 'zero': False}
+&gt;&gt;&gt;</pre>
+</div>
+<p>This is important, because doctests use <tt class="docutils literal"><span class="pre">sstrrepr</span></tt> printer, which orders
+dictionaries in a hash <em>independent</em> way, and so does <tt class="docutils literal"><span class="pre">bin/isympy</span> <span class="pre">-c</span>
+<span class="pre">python</span> <span class="pre">-p</span> <span class="pre">no</span></tt>, so you can just copy &amp; paste the output from there into
+the docstring. Then check the docstring with (assuming you changed
+<tt class="docutils literal"><span class="pre">basic.py</span></tt>):</p>
+<div class="highlight-python"><pre>$ bin/doctest sympy/core/basic.py
+============================= test process starts ==============================
+executable:   /usr/bin/python  (2.6.2-final-0)
+
+sympy/core/basic.py[30] ..............................                      [OK]
+
+================== tests finished: 30 passed in 0.14 seconds ===================</pre>
+</div>
+<p>and that&#8217;s it.</p>
+</div>
 <div class="section" id="appendix">
 <h2>Appendix<a class="headerlink" href="#appendix" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id7">
@@ -1393,6 +1422,7 @@ alias hqq='hg diff . | gvim -geometry 80x40+600+0 -R "+set nowrap" -'</pre>
 <li><a class="reference external" href="#epilogue">Epilogue</a></li>
 </ul>
 </li>
+<li><a class="reference external" href="#how-to-write-docstrings">How to Write Docstrings</a></li>
 <li><a class="reference external" href="#appendix">Appendix</a><ul>
 <li><a class="reference external" href="#id7">Quick Start</a></li>
 </ul>
@@ -1434,12 +1464,12 @@ alias hqq='hg diff . | gvim -geometry 80x40+600+0 -R "+set nowrap" -'</pre>
         <li class="right" >
           <a href="wiki.html" title="Wiki"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">SymPy v0.6.5.rc1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">SymPy v0.6.5 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2008, 2009 SymPy Development Team.
-      Last updated on Jul 13, 2009.
+      Last updated on Aug 28, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

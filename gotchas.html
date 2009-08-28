@@ -3,13 +3,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Gotchas and Pitfalls &mdash; SymPy v0.6.5.rc1 documentation</title>
+    <title>Gotchas and Pitfalls &mdash; SymPy v0.6.5 documentation</title>
     <link rel="stylesheet" href="static/default.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.6.5.rc1',
+        VERSION:     '0.6.5',
         COLLAPSE_MODINDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -17,7 +17,7 @@
     </script>
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="SymPy v0.6.5.rc1 documentation" href="index.html" />
+    <link rel="top" title="SymPy v0.6.5 documentation" href="index.html" />
     <link rel="next" title="SymPy User&#8217;s Guide" href="guide.html" />
     <link rel="prev" title="Tutorial" href="tutorial.html" /> 
   </head>
@@ -37,7 +37,7 @@
         <li class="right" >
           <a href="tutorial.html" title="Tutorial"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">SymPy v0.6.5.rc1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">SymPy v0.6.5 documentation</a> &raquo;</li> 
       </ul>
     </div>  
     <div class="document">
@@ -153,16 +153,8 @@ be the same as the variable that you assign it to.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">b</span><span class="p">():</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">a</span><span class="p">()</span>
 <span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">()</span> <span class="c"># doctest: +SKIP</span>
-<span class="go">  Traceback (most recent call last):</span>
-<span class="go">File &quot;&lt;console&gt;&quot;, line 1, in &lt;module&gt;</span>
-<span class="go">File &quot;&lt;console&gt;&quot;, line 2, in a</span>
-<span class="go">File &quot;&lt;console&gt;&quot;, line 2, in b</span>
-<span class="go">File &quot;&lt;console&gt;&quot;, line 2, in a</span>
-<span class="go">File &quot;&lt;console&gt;&quot;, line 2, in b</span>
-<span class="go">.</span>
-<span class="go">.                               # Continues for several lines</span>
-<span class="go">.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">()</span>
+<span class="gp">...</span>
 <span class="go">RuntimeError: maximum recursion depth exceeded</span>
 </pre></div>
 </div>
@@ -179,7 +171,7 @@ be the same as the variable that you assign it to.</p>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n-Identifier">&lt;module&gt;</span>
 <span class="nc">NameError</span>: <span class="n-Identifier">name &#39;z&#39; is not defined</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">var</span><span class="p">(</span><span class="s">&#39;z&#39;</span><span class="p">)</span> <span class="c"># This is the easiest way to define x as a standard symbol</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">var</span><span class="p">(</span><span class="s">&#39;z&#39;</span><span class="p">)</span> <span class="c"># This is the easiest way to define z as a standard symbol</span>
 <span class="go">z</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">z</span><span class="o">**</span><span class="mf">2</span>
 <span class="go">z**2</span>
@@ -199,16 +191,18 @@ be the same as the variable that you assign it to.</p>
 <span class="go">w</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">import</span> <span class="nn">sympy</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">dir</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">abc</span><span class="p">)</span> <span class="c">#doctest: +SKIP</span>
-<span class="go">[A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, Symbol, T, U, V,</span>
-<span class="go">W, X, Y, Z, __builtins__, __doc__, __file__, __name__, __package__,</span>
-<span class="go">_greek, _latin, a, alpha, b, beta, c, chi, d, delta, e, epsilon, eta, f, g,</span>
-<span class="go">gamma, h, i, iota, j, k, kappa, l, m, mu, n, nu, o, omega, omicron,</span>
-<span class="go">p, phi, pi, psi, q, r, rho, s, sigma, t, tau, theta, u, upsilon, v, w, x,</span>
-<span class="go">xi, y, z, zeta]</span>
+<span class="go">[&#39;A&#39;, &#39;B&#39;, &#39;C&#39;, &#39;D&#39;, &#39;E&#39;, &#39;F&#39;, &#39;G&#39;, &#39;H&#39;, &#39;I&#39;, &#39;J&#39;, &#39;K&#39;, &#39;L&#39;, &#39;M&#39;, &#39;N&#39;, &#39;O&#39;,</span>
+<span class="go">&#39;P&#39;, &#39;Q&#39;, &#39;R&#39;, &#39;S&#39;, &#39;Symbol&#39;, &#39;T&#39;, &#39;U&#39;, &#39;V&#39;, &#39;W&#39;, &#39;X&#39;, &#39;Y&#39;, &#39;Z&#39;,</span>
+<span class="go">&#39;__builtins__&#39;, &#39;__doc__&#39;, &#39;__file__&#39;, &#39;__name__&#39;, &#39;__package__&#39;, &#39;_greek&#39;,</span>
+<span class="go">&#39;_latin&#39;, &#39;a&#39;, &#39;alpha&#39;, &#39;b&#39;, &#39;beta&#39;, &#39;c&#39;, &#39;chi&#39;, &#39;d&#39;, &#39;delta&#39;, &#39;e&#39;,</span>
+<span class="go">&#39;epsilon&#39;, &#39;eta&#39;, &#39;f&#39;, &#39;g&#39;, &#39;gamma&#39;, &#39;h&#39;, &#39;i&#39;, &#39;iota&#39;, &#39;j&#39;, &#39;k&#39;, &#39;kappa&#39;,</span>
+<span class="go">&#39;l&#39;, &#39;m&#39;, &#39;mu&#39;, &#39;n&#39;, &#39;nu&#39;, &#39;o&#39;, &#39;omega&#39;, &#39;omicron&#39;, &#39;p&#39;, &#39;phi&#39;, &#39;pi&#39;,</span>
+<span class="go">&#39;psi&#39;, &#39;q&#39;, &#39;r&#39;, &#39;rho&#39;, &#39;s&#39;, &#39;sigma&#39;, &#39;t&#39;, &#39;tau&#39;, &#39;theta&#39;, &#39;u&#39;, &#39;upsilon&#39;,</span>
+<span class="go">&#39;v&#39;, &#39;w&#39;, &#39;x&#39;, &#39;xi&#39;, &#39;y&#39;, &#39;z&#39;, &#39;zeta&#39;]</span>
 </pre></div>
 </div>
 <p>If you want control over the assumptions of the variables, use <tt class="xref docutils literal"><span class="pre">Symbol()</span></tt> and <tt class="xref docutils literal"><span class="pre">symbols()</span></tt>.  See <a class="reference internal" href="#keyword-arguments"><em>Keyword Arguments</em></a> below.</p>
-<p>Lastly, it is recomended that you not use <tt class="xref docutils literal"><span class="pre">I</span></tt>, <tt class="xref docutils literal"><span class="pre">E</span></tt>, <a title="S" class="reference external" href="modules/galgebra/GA/GAsympy.html#S"><tt class="xref docutils literal"><span class="pre">S</span></tt></a>, <tt class="xref docutils literal"><span class="pre">N</span></tt>, <tt class="xref docutils literal"><span class="pre">C</span></tt>, or <tt class="xref docutils literal"><span class="pre">O</span></tt> for variable or symbol names, as those are used for the imaginary unit (<img class="math" src="images/math/34857b3ba74ce5cd8607f3ebd23e9015908ada71.png" alt="i"/>), the base of the natural logarithm (<img class="math" src="images/math/a3a59bb1293ee3f6dec19de4019a7178874219ae.png" alt="e"/>), the <tt class="xref docutils literal"><span class="pre">sympify()</span></tt> function (see <a class="reference internal" href="#symbolic-expressions"><em>Symbolic Expressions</em></a> below), evaluation (<tt class="xref docutils literal"><span class="pre">N()</span></tt> is equivalent to <a class="reference external" href="modules/evalf.html#evalf-label"><em>evalf()</em></a> ), the class registry (for things like <tt class="xref docutils literal"><span class="pre">C.cos()</span></tt>, to prevent cyclic imports in some code), and the <a class="reference external" href="http://en.wikipedia.org/wiki/Big_O_notation">big O</a> order symbol (as in <img class="math" src="images/math/072d7b2a0550530d0413f0732f33a9d1dc731a43.png" alt="O(n\log{n})"/>), respectively.  Python will not prevent you from overriding default SymPy names or functions, so be careful.</p>
+<p>Lastly, it is recomended that you not use <tt class="xref docutils literal"><span class="pre">I</span></tt>, <tt class="xref docutils literal"><span class="pre">E</span></tt>, <a title="S" class="reference external" href="modules/galgebra/GA/GAsympy.html#S"><tt class="xref docutils literal"><span class="pre">S</span></tt></a>, <tt class="xref docutils literal"><span class="pre">N</span></tt>, <tt class="xref docutils literal"><span class="pre">C</span></tt>, or <tt class="xref docutils literal"><span class="pre">O</span></tt> for variable or symbol names, as those are used for the imaginary unit (<img class="math" src="images/math/34857b3ba74ce5cd8607f3ebd23e9015908ada71.png" alt="i"/>), the base of the natural logarithm (<img class="math" src="images/math/a3a59bb1293ee3f6dec19de4019a7178874219ae.png" alt="e"/>), the <tt class="xref docutils literal"><span class="pre">sympify()</span></tt> function (see <a class="reference internal" href="#symbolic-expressions"><em>Symbolic Expressions</em></a> below), evaluation (<tt class="xref docutils literal"><span class="pre">N()</span></tt> is equivalent to <a class="reference external" href="modules/evalf.html#evalf-label"><em>evalf()</em></a> ), the class registry (for things like <tt class="xref docutils literal"><span class="pre">C.cos()</span></tt>, to prevent cyclic imports in some code), and the <a class="reference external" href="http://en.wikipedia.org/wiki/Big_O_notation">big O</a> order symbol (as in <img class="math" src="images/math/072d7b2a0550530d0413f0732f33a9d1dc731a43.png" alt="O(n\log{n})"/>), respectively.  You can use the mnemonic <tt class="docutils literal"><span class="pre">COSINE</span></tt> to remember what Symbols are defined by default in SymPy.  Or better yet, always use lowercase letters for Symbol names.  Python will not prevent you from overriding default SymPy names or functions, so be careful.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cos</span><span class="p">(</span><span class="n">pi</span><span class="p">)</span> <span class="c"># cos and pi are a built-in sympy names.</span>
 <span class="go">-1</span>
@@ -296,6 +290,20 @@ be the same as the variable that you assign it to.</p>
 <span class="go">True</span>
 </pre></div>
 </div>
+<p><tt class="xref docutils literal"><span class="pre">Rational</span></tt> only works for number/number and is only meant for rational numbers.  If you want a fraction with symbols or expressions in it, just use <tt class="docutils literal"><span class="pre">/</span></tt>.  If you do number/expression or expression/number, then the number will automatically be converted in to a SymPy Number.  You only need to be careful with number/number.</p>
+<div class="highlight-python"><pre>&gt;&gt;&gt; Rational(2, x)
+Traceback (most recent call last):
+  File "...", line ..., in ...
+    compileflags, 1) in test.globs
+  File "&lt;...&gt;", line 1, in &lt;module&gt;
+    Rational(2, x)
+  ...
+ValueError: ...:function __new__ 2-th argument must be of type (&lt;type
+'int'&gt;, &lt;type 'long'&gt;, &lt;class 'sympy.core.numbers.Integer'&gt;, &lt;type
+'NoneType'&gt;) but got x
+&gt;&gt;&gt; 2/x
+2/x</pre>
+</div>
 </div>
 <div class="section" id="mathematical-operators">
 <h3>Mathematical Operators<a class="headerlink" href="#mathematical-operators" title="Permalink to this headline">¶</a></h3>
@@ -306,24 +314,21 @@ You need to use <tt class="docutils literal"><span class="pre">*</span></tt> whe
 something to a power, use <tt class="docutils literal"><span class="pre">**</span></tt>, not <tt class="docutils literal"><span class="pre">^</span></tt> as many computer algebra systems
 use.  Parentheses <tt class="docutils literal"><span class="pre">()</span></tt> change operator precedence as you would normally expect.</p>
 <p>In <strong>isympy</strong>, with the <strong>ipython</strong> shell:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="mf">2</span><span class="n">x</span> <span class="c"># not allowed #doctest: +SKIP</span>
-<span class="go">  File &quot;&lt;console&gt;&quot;, line 1</span>
-<span class="go">    2x # not allowed</span>
-<span class="go">     ^</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="mf">2</span><span class="n">x</span>
+<span class="gp">...</span>
 <span class="go">SyntaxError: invalid syntax</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="mf">2</span><span class="o">*</span><span class="n">x</span> <span class="c">#doctest: +SKIP</span>
-<span class="go">2⋅x</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mf">2</span><span class="o">*</span><span class="n">x</span>
+<span class="go">2*x</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">^</span><span class="mf">2</span> <span class="c"># This is not power.  Use ** instead.</span>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">&quot;&lt;console&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n-Identifier">&lt;module&gt;</span>
 <span class="nc">TypeError: unsupported operand type(s) for ^</span>: <span class="n-Identifier">&#39;Symbol&#39; and &#39;int&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">**</span><span class="mf">2</span> <span class="c">#doctest: +SKIP</span>
-<span class="go"> 2</span>
-<span class="go">x</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="mf">3</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="p">(</span><span class="mf">2</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mf">1</span><span class="p">)</span> <span class="c">#doctest: +SKIP</span>
-<span class="go">      2⋅x</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">**</span><span class="mf">2</span>
+<span class="go">x**2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="mf">3</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="p">(</span><span class="mf">2</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mf">1</span><span class="p">))</span>
+<span class="go">      2*x</span>
 <span class="go">     x</span>
-<span class="go">3 - ─────</span>
+<span class="go">3 - -----</span>
 <span class="go">    1 + x</span>
 </pre></div>
 </div>
@@ -416,28 +421,26 @@ use.  Parentheses <tt class="docutils literal"><span class="pre">()</span></tt> 
 <p>Aside from the usage described <a class="reference internal" href="#equals-signs"><em>above</em></a>, equals signs (<tt class="docutils literal"><span class="pre">=</span></tt>) are also used to give named arguments to functions.  Any function that has <tt class="docutils literal"><span class="pre">key=value</span></tt> in its parameters list (see below on how to find this out), then <tt class="docutils literal"><span class="pre">key</span></tt> is set to <tt class="docutils literal"><span class="pre">value</span></tt> by default.  You can change the value of the key by supplying your own value using the equals sign in the function call.  Also, functions that have <tt class="docutils literal"><span class="pre">**</span></tt> followed by a name in the parameters list (usually <tt class="docutils literal"><span class="pre">**kwargs</span></tt> or <tt class="docutils literal"><span class="pre">**assumptions</span></tt>) allow you to add any number of <tt class="docutils literal"><span class="pre">key=value</span></tt> pairs that you want, and they will all be evaluated according to the function.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># sqrt(x**2) doesn&#39;t auto simplify to x because x is assumed to be</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># complex by default, and, for example, sqrt((-1)**2) == sqrt(1) == 1 != -1.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mf">2</span><span class="p">)</span> <span class="c">#doctest: +SKIP</span>
-<span class="go">   ____</span>
-<span class="go">  /  2</span>
-<span class="go">\/  x</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mf">2</span><span class="p">)</span>
+<span class="go">(x**2)**(1/2)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c"># One example of keyword arguments is assumptions for Symbols</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mf">2</span><span class="p">)</span> <span class="c"># only == x if x &gt;= 0</span>
 <span class="go">x</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">powsimp</span><span class="p">((</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="n">m</span><span class="p">))</span> <span class="c"># powsimp has a default argument, combine=&#39;all&#39; #doctest: +SKIP</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">powsimp</span><span class="p">((</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="n">m</span><span class="p">)))</span> <span class="c"># powsimp has a default argument, combine=&#39;all&#39;</span>
 <span class="go">     m + n</span>
-<span class="go">(x⋅y)</span>
+<span class="go">(x*y)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># Setting combine to the default value is the same as not setting it.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">powsimp</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="n">n</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="n">m</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="n">n</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="n">m</span><span class="p">,</span> <span class="n">combine</span><span class="o">=</span><span class="s">&#39;all&#39;</span><span class="p">)</span> <span class="c">#doctest: +SKIP</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">powsimp</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="n">n</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="n">m</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="n">n</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="n">m</span><span class="p">,</span> <span class="n">combine</span><span class="o">=</span><span class="s">&#39;all&#39;</span><span class="p">))</span>
 <span class="go">     m + n</span>
-<span class="go">(x⋅y)</span>
+<span class="go">(x*y)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># The non-default options are &#39;exp&#39;, which combines exponenents...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">powsimp</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="n">n</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="n">m</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="n">n</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="n">m</span><span class="p">,</span> <span class="n">combine</span><span class="o">=</span><span class="s">&#39;exp&#39;</span><span class="p">)</span> <span class="c">#doctest: +SKIP</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">powsimp</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="n">n</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="n">m</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="n">n</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="n">m</span><span class="p">,</span> <span class="n">combine</span><span class="o">=</span><span class="s">&#39;exp&#39;</span><span class="p">))</span>
 <span class="go"> m + n  m + n</span>
-<span class="go">x     ⋅y</span>
+<span class="go">x     *y</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># ...and &#39;base&#39;, which combines bases.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">powsimp</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="n">n</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="n">m</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="n">n</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="n">m</span><span class="p">,</span> <span class="n">combine</span><span class="o">=</span><span class="s">&#39;base&#39;</span><span class="p">)</span> <span class="c">#doctest: +SKIP</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">powsimp</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="n">n</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="n">m</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="n">n</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="n">m</span><span class="p">,</span> <span class="n">combine</span><span class="o">=</span><span class="s">&#39;base&#39;</span><span class="p">))</span>
 <span class="go">     m      n</span>
-<span class="go">(x⋅y) ⋅(x⋅y)</span>
+<span class="go">(x*y) *(x*y)</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -482,7 +485,7 @@ to be automatic.  Also use deep=True if you need the old behavior.</p>
 </dd>
 <dt>== Examples ==</dt>
 <dd><div class="first highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="o">*</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span><span class="n">n</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">Symbol</span><span class="p">,</span> <span class="s">&#39;xn&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span><span class="n">n</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s">&#39;xn&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="n">n</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">n</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">n</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">powsimp</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
 <span class="go">n**(1 - n)</span>
@@ -620,12 +623,12 @@ to be automatic.  Also use deep=True if you need the old behavior.</p>
         <li class="right" >
           <a href="tutorial.html" title="Tutorial"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">SymPy v0.6.5.rc1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">SymPy v0.6.5 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2008, 2009 SymPy Development Team.
-      Last updated on Jul 13, 2009.
+      Last updated on Aug 28, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

@@ -3,13 +3,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Statistics &mdash; SymPy v0.6.5.rc1 documentation</title>
+    <title>Statistics &mdash; SymPy v0.6.5 documentation</title>
     <link rel="stylesheet" href="../static/default.css" type="text/css" />
     <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.6.5.rc1',
+        VERSION:     '0.6.5',
         COLLAPSE_MODINDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -17,9 +17,9 @@
     </script>
     <script type="text/javascript" src="../static/jquery.js"></script>
     <script type="text/javascript" src="../static/doctools.js"></script>
-    <link rel="top" title="SymPy v0.6.5.rc1 documentation" href="../index.html" />
+    <link rel="top" title="SymPy v0.6.5 documentation" href="../index.html" />
     <link rel="up" title="SymPy Modules Reference" href="../modules.html" />
-    <link rel="next" title="Concrete Mathematics" href="concrete.html" />
+    <link rel="next" title="ODE" href="solvers/ode.html" />
     <link rel="prev" title="Simplify" href="simplify.html" /> 
   </head>
   <body>
@@ -33,12 +33,12 @@
           <a href="../modindex.html" title="Global Module Index"
              accesskey="M">modules</a> |</li>
         <li class="right" >
-          <a href="concrete.html" title="Concrete Mathematics"
+          <a href="solvers/ode.html" title="ODE"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="simplify.html" title="Simplify"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">SymPy v0.6.5.rc1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">SymPy v0.6.5 documentation</a> &raquo;</li>
           <li><a href="../modules.html" accesskey="U">SymPy Modules Reference</a> &raquo;</li> 
       </ul>
     </div>  
@@ -54,6 +54,8 @@
 and related tools. Its contents can be imported with the following statement:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">from</span> <span class="nn">sympy.statistics</span> <span class="k">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">import</span> <span class="nn">sys</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">displayhook</span> <span class="o">=</span> <span class="n">pprint</span>
 </pre></div>
 </div>
 <div class="section" id="normal-distributions">
@@ -140,8 +142,8 @@ and 3 standard deviations:</p>
 </pre></div>
 </div>
 <p>Plug the interval back in to see that the value is correct:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">N</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">confidence</span><span class="p">(</span><span class="mf">0.95</span><span class="p">))</span><span class="o">.</span><span class="n">evalf</span><span class="p">()</span> <span class="c">#doctest: +SKIP</span>
-<span class="go">0.95</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">N</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="o">*</span><span class="n">N</span><span class="o">.</span><span class="n">confidence</span><span class="p">(</span><span class="mf">0.95</span><span class="p">))</span><span class="o">.</span><span class="n">evalf</span><span class="p">()</span>
+<span class="go">0.950000000000000</span>
 </pre></div>
 </div>
 </div>
@@ -176,7 +178,7 @@ probability on the interval [a, b] and zero probability everywhere else. The
             <h4>Previous topic</h4>
             <p class="topless"><a href="simplify.html" title="previous chapter">Simplify</a></p>
             <h4>Next topic</h4>
-            <p class="topless"><a href="concrete.html" title="next chapter">Concrete Mathematics</a></p>
+            <p class="topless"><a href="solvers/ode.html" title="next chapter">ODE</a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
               <li><a href="../sources/modules/statistics.txt">Show Source</a></li>
@@ -201,18 +203,18 @@ probability on the interval [a, b] and zero probability everywhere else. The
           <a href="../modindex.html" title="Global Module Index"
              accesskey="M">modules</a> |</li>
         <li class="right" >
-          <a href="concrete.html" title="Concrete Mathematics"
+          <a href="solvers/ode.html" title="ODE"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="simplify.html" title="Simplify"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">SymPy v0.6.5.rc1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">SymPy v0.6.5 documentation</a> &raquo;</li>
           <li><a href="../modules.html" accesskey="U">SymPy Modules Reference</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2008, 2009 SymPy Development Team.
-      Last updated on Jul 13, 2009.
+      Last updated on Aug 28, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>

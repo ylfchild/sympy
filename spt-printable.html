@@ -1083,6 +1083,37 @@ as well.</p>
 </div>
 </div>
 </div>
+<div class="section" id="how-to-write-docstrings">
+<h1>How to Write Docstrings</h1>
+<p>Execute the code that you want to add into the docstrings by:</p>
+<pre class="literal-block">
+$ bin/isympy -c python -p no
+[...]
+Documentation can be found at http://sympy.org/
+
+&gt;&gt;&gt; x = Symbol(&quot;x&quot;, positive=True)  # doctest: +SKIP
+&gt;&gt;&gt; x.assumptions0   # doctest: +SKIP
+{'commutative': True, 'complex': True, 'imaginary': False, 'negative':
+False, 'nonnegative': True, 'nonpositive': False, 'nonzero': True,
+'positive': True, 'real': True, 'zero': False}
+&gt;&gt;&gt;
+</pre>
+<p>This is important, because doctests use <tt class="docutils literal"><span class="pre">sstrrepr</span></tt> printer, which orders
+dictionaries in a hash <em>independent</em> way, and so does <tt class="docutils literal"><span class="pre">bin/isympy</span> <span class="pre">-c</span>
+<span class="pre">python</span> <span class="pre">-p</span> <span class="pre">no</span></tt>, so you can just copy &amp; paste the output from there into
+the docstring. Then check the docstring with (assuming you changed
+<tt class="docutils literal"><span class="pre">basic.py</span></tt>):</p>
+<pre class="literal-block">
+$ bin/doctest sympy/core/basic.py
+============================= test process starts ==============================
+executable:   /usr/bin/python  (2.6.2-final-0)
+
+sympy/core/basic.py[30] ..............................                      [OK]
+
+================== tests finished: 30 passed in 0.14 seconds ===================
+</pre>
+<p>and that's it.</p>
+</div>
 <div class="section" id="appendix">
 <h1>Appendix</h1>
 <div class="section" id="id7">

@@ -3,13 +3,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>SymPy Core &mdash; SymPy v0.6.5.rc1 documentation</title>
+    <title>SymPy Core &mdash; SymPy v0.6.5 documentation</title>
     <link rel="stylesheet" href="../static/default.css" type="text/css" />
     <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.6.5.rc1',
+        VERSION:     '0.6.5',
         COLLAPSE_MODINDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -17,9 +17,9 @@
     </script>
     <script type="text/javascript" src="../static/jquery.js"></script>
     <script type="text/javascript" src="../static/doctools.js"></script>
-    <link rel="top" title="SymPy v0.6.5.rc1 documentation" href="../index.html" />
+    <link rel="top" title="SymPy v0.6.5 documentation" href="../index.html" />
     <link rel="up" title="SymPy Modules Reference" href="../modules.html" />
-    <link rel="next" title="Numerical evaluation" href="evalf.html" />
+    <link rel="next" title="Concrete Mathematics" href="concrete.html" />
     <link rel="prev" title="SymPy Modules Reference" href="../modules.html" /> 
   </head>
   <body>
@@ -33,12 +33,12 @@
           <a href="../modindex.html" title="Global Module Index"
              accesskey="M">modules</a> |</li>
         <li class="right" >
-          <a href="evalf.html" title="Numerical evaluation"
+          <a href="concrete.html" title="Concrete Mathematics"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="../modules.html" title="SymPy Modules Reference"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">SymPy v0.6.5.rc1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">SymPy v0.6.5 documentation</a> &raquo;</li>
           <li><a href="../modules.html" accesskey="U">SymPy Modules Reference</a> &raquo;</li> 
       </ul>
     </div>  
@@ -341,18 +341,25 @@ expression.</p>
 
 <dl class="method">
 <dt id="sympy.core.basic.Basic.coeff">
-<!--[sympy.core.basic.Basic.coeff]--><tt class="descname">coeff</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#sympy.core.basic.Basic.coeff" title="Permalink to this definition">¶</a></dt>
+<!--[sympy.core.basic.Basic.coeff]--><tt class="descname">coeff</tt><big>(</big><em>x</em>, <em>expand=True</em><big>)</big><a class="headerlink" href="#sympy.core.basic.Basic.coeff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the coefficient of the term &#8220;x&#8221; or None if there is no &#8220;x&#8221;.</p>
+<p>Optional expand keyword argument allows one to control whether the
+expression is expanded before terms are collected, which can be useful
+if the term &#8220;x&#8221; isn&#8217;t nested inside of terms and you don&#8217;t want the
+returned coefficient to be expanded.</p>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mf">3</span><span class="o">+</span><span class="mf">2</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mf">4</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mf">2</span><span class="p">)</span><span class="o">.</span><span class="n">coeff</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="n">symbols</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s">&#39;x y z&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mf">3</span><span class="o">+</span><span class="mf">2</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mf">4</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mf">2</span><span class="p">)</span><span class="o">.</span><span class="n">coeff</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mf">3</span><span class="o">+</span><span class="mf">2</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mf">4</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mf">2</span><span class="p">)</span><span class="o">.</span><span class="n">coeff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="go">2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mf">3</span><span class="o">+</span><span class="mf">2</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mf">4</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mf">2</span><span class="p">)</span><span class="o">.</span><span class="n">coeff</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mf">2</span><span class="p">)</span>
 <span class="go">4</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mf">3</span><span class="o">+</span><span class="mf">2</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mf">4</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mf">2</span><span class="p">)</span><span class="o">.</span><span class="n">coeff</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mf">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">z</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">)</span><span class="o">**</span><span class="mf">2</span><span class="p">)</span><span class="o">.</span><span class="n">coeff</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+<span class="go">2*x*y + x**2 + y**2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">z</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">)</span><span class="o">**</span><span class="mf">2</span><span class="p">)</span><span class="o">.</span><span class="n">coeff</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="go">(x + y)**2</span>
 <span class="go">&gt;&gt;&gt;</span>
 </pre></div>
 </div>
@@ -969,6 +976,48 @@ commutative = True</dd>
 addition.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="sympy.core.add.Add.matches">
+<!--[sympy.core.add.Add.matches]--><tt class="descname">matches</tt><big>(</big><em>pattern</em>, <em>expr</em>, <em>repl_dict={}</em>, <em>evaluate=False</em><big>)</big><a class="headerlink" href="#sympy.core.add.Add.matches" title="Permalink to this definition">¶</a></dt>
+<dd><p>Matches Add/Mul &#8220;pattern&#8221; to an expression &#8220;expr&#8221;.</p>
+<dl class="docutils">
+<dt>repl_dict ... a dictionary of (wild: expression) pairs, that get</dt>
+<dd>returned with the results</dd>
+<dt>evaluate .... if True, then repl_dict is first substituted into the</dt>
+<dd>pattern, and then _matches_commutative is run</dd>
+</dl>
+<p>This function is the main workhorse for Add/Mul.</p>
+<p>For instance:</p>
+<p>&gt;&gt; from sympy import symbols, Wild, sin
+&gt;&gt; a = Wild(&#8220;a&#8221;)
+&gt;&gt; b = Wild(&#8220;b&#8221;)
+&gt;&gt; c = Wild(&#8220;c&#8221;)
+&gt;&gt; x, y, z = symbols(&#8220;x y z&#8221;)
+&gt;&gt; (a+b*c)._matches_commutative(x+y*z)
+{<a href="#id3"><span class="problematic" id="id4">a_</span></a>: x, <a href="#id5"><span class="problematic" id="id6">b_</span></a>: y, <a href="#id7"><span class="problematic" id="id8">c_</span></a>: z}</p>
+<p>In the example above, &#8220;a+b*c&#8221; is the pattern, and &#8220;x+y*z&#8221; is the
+expression. Some more examples:</p>
+<p>&gt;&gt; (a+b*c)._matches_commutative(sin(x)+y*z)
+{<a href="#id9"><span class="problematic" id="id10">a_</span></a>: sin(x), <a href="#id11"><span class="problematic" id="id12">b_</span></a>: y, <a href="#id13"><span class="problematic" id="id14">c_</span></a>: z}
+&gt;&gt; (a+sin(b)*c)._matches_commutative(x+sin(y)*z)
+{<a href="#id15"><span class="problematic" id="id16">a_</span></a>: x, <a href="#id17"><span class="problematic" id="id18">b_</span></a>: y, <a href="#id19"><span class="problematic" id="id20">c_</span></a>: z}</p>
+<p>The repl_dict contains parts, that were already matched, and the
+&#8220;evaluate=True&#8221; kwarg tells _matches_commutative to substitute this
+repl_dict into pattern. For example here:</p>
+<p>&gt;&gt; (a+b*c)._matches_commutative(x+y*z, repl_dict={a: x}, evaluate=True)
+{<a href="#id21"><span class="problematic" id="id22">a_</span></a>: x, <a href="#id23"><span class="problematic" id="id24">b_</span></a>: y, <a href="#id25"><span class="problematic" id="id26">c_</span></a>: z}</p>
+<p>_matches_commutative substitutes &#8220;x&#8221; for &#8220;a&#8221; in the pattern and calls
+itself again with the new pattern &#8220;x+b*c&#8221; and evaluate=False (default):</p>
+<p>&gt;&gt; (x+b*c)._matches_commutative(x+y*z, repl_dict={a: x})
+{<a href="#id27"><span class="problematic" id="id28">a_</span></a>: x, <a href="#id29"><span class="problematic" id="id30">b_</span></a>: y, <a href="#id31"><span class="problematic" id="id32">c_</span></a>: z}</p>
+<p>the only function of the repl_dict now is just to return it in the
+result, e.g. if you omit it:</p>
+<p>&gt;&gt; (x+b*c)._matches_commutative(x+y*z)
+{<a href="#id33"><span class="problematic" id="id34">b_</span></a>: y, <a href="#id35"><span class="problematic" id="id36">c_</span></a>: z}</p>
+<p>the &#8220;a: x&#8221; is not returned in the result, but otherwise it is
+equivalent.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -996,7 +1045,7 @@ addition.</p>
             <h4>Previous topic</h4>
             <p class="topless"><a href="../modules.html" title="previous chapter">SymPy Modules Reference</a></p>
             <h4>Next topic</h4>
-            <p class="topless"><a href="evalf.html" title="next chapter">Numerical evaluation</a></p>
+            <p class="topless"><a href="concrete.html" title="next chapter">Concrete Mathematics</a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
               <li><a href="../sources/modules/core.txt">Show Source</a></li>
@@ -1021,18 +1070,18 @@ addition.</p>
           <a href="../modindex.html" title="Global Module Index"
              accesskey="M">modules</a> |</li>
         <li class="right" >
-          <a href="evalf.html" title="Numerical evaluation"
+          <a href="concrete.html" title="Concrete Mathematics"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="../modules.html" title="SymPy Modules Reference"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">SymPy v0.6.5.rc1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">SymPy v0.6.5 documentation</a> &raquo;</li>
           <li><a href="../modules.html" accesskey="U">SymPy Modules Reference</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
       &copy; Copyright 2008, 2009 SymPy Development Team.
-      Last updated on Jul 13, 2009.
+      Last updated on Aug 28, 2009.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.2.
     </div>
   </body>
