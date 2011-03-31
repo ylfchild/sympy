@@ -1334,6 +1334,8 @@ class Matrix(object):
         return self.adjugate()/d
 
     def rref(self,simplified=False, iszerofunc=_iszero):
+      
+        return S.Zero
         """
         Take any matrix and return reduced row-echelon form and indices of pivot vars
 
