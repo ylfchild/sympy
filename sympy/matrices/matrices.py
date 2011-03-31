@@ -1332,15 +1332,15 @@ class Matrix(object):
         d = self.berkowitz_det()
         assert d != 0
         return self.adjugate()/d
-
+    """
     def rref(self,simplified=False, iszerofunc=_iszero):
       
         return S.Zero
-        """
+        """ """
         Take any matrix and return reduced row-echelon form and indices of pivot vars
 
         To simplify elements before finding nonzero pivots set simplified=True
-        """
+        """ """
         # TODO: rewrite inverse_GE to use this
         pivots, r = 0, self[:,:]        # pivot: index of next row to contain a pivot
         pivotlist = []                  # indices of pivot variables (non-free)
@@ -1368,7 +1368,7 @@ class Matrix(object):
             pivotlist.append(i)
             pivots += 1
         return r, pivotlist
-
+    """
     def nullspace(self,simplified=False):
         """
         Returns list of vectors (Matrix objects) that span nullspace of self
